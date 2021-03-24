@@ -1,0 +1,40 @@
+{
+    "description": "",
+    "name": "breno/x-bus",
+    "authors": [
+        {
+            "name": "Breno Roosevelt",
+            "email": "breno.jesus@ufms.br"
+        }
+    ],
+    "require": {
+        "php" : "^7.1 || ^8.0",
+        "psr/container": "@stable",
+        "psr/simple-cache": "@stable",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6 || ^9",
+        "squizlabs/php_codesniffer": "@stable",
+        "phpstan/phpstan": "^0.12.82",
+        "brenoroosevelt/habemus" : "@stable",
+        "symfony/cache": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "XBus\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "XBus\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": [
+            "phpunit tests",
+            "phpcs -p src tests",
+            "phpstan analyse src"
+        ]
+    }
+}
