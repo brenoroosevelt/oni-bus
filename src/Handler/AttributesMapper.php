@@ -102,9 +102,8 @@ class AttributesMapper implements ClassMethodMapper
 
     protected function extractHandlerAttribute(ReflectionMethod $method): ?Handler
     {
-        //$attribute = $method->getAttributes(Handler::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
-        $attribute = $method->getAttributes(Handler::class)[0] ?? null;
-        if (!is_null($attribute)) {
+        $attribute = $method->getAttributes(Handler::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
+        if ($attribute instanceof ReflectionAttribute) {
             return $attribute->newInstance();
         }
 
