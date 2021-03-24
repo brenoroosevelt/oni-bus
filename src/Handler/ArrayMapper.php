@@ -15,7 +15,7 @@ class ArrayMapper implements ClassMethodMapper
     protected $map;
 
     /**
-     * @param array $map ['messageFQN' => ['classFQN', 'method'], ...]
+     * @param array $map ['messageFQCN' => ['classFQCN', 'method'], ...]
      */
     public function __construct(array $map)
     {
