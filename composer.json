@@ -1,6 +1,9 @@
 {
     "description": "Service Bus: Command Bus, Query Bus, Event Bus",
     "name": "brenoroosevelt/x-bus",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "homepage": "https://github.com/brenoroosevelt/x-bus",
     "authors": [
         {
             "name": "Breno Roosevelt",
@@ -10,8 +13,7 @@
     "require": {
         "php" : "^7.1 || ^8.0",
         "psr/container": "@stable",
-        "psr/simple-cache": "@stable",
-        "ext-json": "*"
+        "psr/simple-cache": "@stable"
     },
     "require-dev": {
         "phpunit/phpunit": "^6 || ^9",
