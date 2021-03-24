@@ -1,10 +1,10 @@
 {
-    "description": "",
-    "name": "breno/x-bus",
+    "description": "Service Bus: Command Bus, Query Bus, Event Bus",
+    "name": "brenoroosevelt/x-bus",
     "authors": [
         {
             "name": "Breno Roosevelt",
-            "email": "breno.jesus@ufms.br"
+            "email": "breno.roosevelt@gmail.com"
         }
     ],
     "require": {
