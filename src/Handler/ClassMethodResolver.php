@@ -27,10 +27,19 @@ class ClassMethodResolver implements HandlerResolver
 
     public function resolve(Message $message): Closure
     {
-        $classMethod = $this->mapper->map($message);
-        return function (Message $message) use ($classMethod) {
-            $handler = $this->container->get($classMethod->class());
-            return call_user_func_array([$handler, $classMethod->method()], [$message]);
+        $classMethods = $this->mapper->map($message);
+        $fn = function () {
         };
+        var_dump($classMethods);
+
+        foreach ($classMethods as $classMethod) {
+            $fn = function (Message $message) use ($fn, $classMethod) {
+                $fn($message);
+                $class = $this->container->get($classMethod->class());
+                return call_user_func_array([$class, $classMethod->method()], [$message]);
+            };
+        }
+
+        return $fn;
     }
 }

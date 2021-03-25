@@ -9,6 +9,7 @@ use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
+use XBus\Attributes\CommandHandler;
 use XBus\Attributes\Handler;
 use XBus\Exception\UnresolvableMenssageExcpetion;
 use XBus\Message;
@@ -30,9 +31,14 @@ class AttributesMapper implements ClassMethodMapper
      * @var CacheInterface
      */
     protected $cache;
+    /**
+     * @var string
+     */
+    private $attribute;
 
-    public function __construct(array $handlersFQCN, CacheInterface $cache, string $cacheKey)
+    public function __construct(array $handlersFQCN, string $attribute, CacheInterface $cache, string $cacheKey)
     {
+        $this->attribute = $attribute;
         $this->cache = $cache;
         $this->cacheKey = $cacheKey;
         $this->map = $this->mapHandlers($handlersFQCN);
@@ -41,20 +47,17 @@ class AttributesMapper implements ClassMethodMapper
     /**
      * @inheritDoc
      */
-    public function map(Message $message): ClassMethod
+    public function map(Message $message): array
     {
         $name = $message instanceof NamedMessage ? $message->getMessageName() : get_class($message);
-        if (!array_key_exists($name, $this->map)) {
-            throw UnresolvableMenssageExcpetion::message($message);
-        }
-
-        list($class, $method)  = $this->map[$name];
-        return new ClassMethod($class, $method);
+        return array_filter($this->map, function ($item) use ($name) {
+            return $item->message() === $name;
+        });
     }
 
     /**
      * @param  array $handlersFQCN
-     * @return array ['message' => ['class', 'method'], ...]
+     * @return ClassMethod[]
      * @throws InvalidArgumentException|ReflectionException
      */
     protected function mapHandlers(array $handlersFQCN): array
@@ -77,7 +80,7 @@ class AttributesMapper implements ClassMethodMapper
 
     /**
      * @param  string $class
-     * @return array ['message' => ['class', 'method'], ...]
+     * @return ClassMethod[]
      * @throws ReflectionException
      */
     protected function getHandlers(string $class): array
@@ -94,7 +97,7 @@ class AttributesMapper implements ClassMethodMapper
                 continue;
             }
 
-            $handlers[$this->extractMessage($method, $attribute)] = [$class, $method->getName()];
+            $handlers[] = new ClassMethod($this->extractMessage($method, $attribute), $class, $method->getName());
         }
 
         return $handlers;
@@ -102,9 +105,11 @@ class AttributesMapper implements ClassMethodMapper
 
     protected function extractHandlerAttribute(ReflectionMethod $method): ?Handler
     {
-        $attribute = $method->getAttributes(Handler::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
+        $attribute = $method->getAttributes($this->attribute, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
         if ($attribute instanceof ReflectionAttribute) {
-            return $attribute->newInstance();
+            $attr =  $attribute->newInstance();
+            assert($attr instanceof Handler);
+            return $attr;
         }
 
         return null;

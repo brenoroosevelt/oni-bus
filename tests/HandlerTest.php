@@ -7,6 +7,8 @@ use Habemus\Container;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Psr16Cache;
+use XBus\Attributes\Authorizer;
+use XBus\Attributes\CommandHandler;
 use XBus\BusChain;
 use XBus\Buses\DispatchToHandler;
 use XBus\Handler\AttributesMapper;
@@ -27,13 +29,15 @@ class HandlerTest extends TestCase
             HandlerUsingAttributes::class
         ];
 
-        $cache = new Psr16Cache(new ArrayAdapter());
+        $cache1 = new Psr16Cache(new ArrayAdapter());
         $resolver = new ClassMethodResolver(
             new Container(),
-            new AttributesMapper($handlers, $cache, 'my_handlers')
+            new AttributesMapper($handlers, CommandHandler::class, $cache1, 'aadd')
         );
 
-        $bus = new BusChain(new DispatchToHandler($resolver));
+        $commandHandler = new DispatchToHandler($resolver);
+
+        $bus = new BusChain($commandHandler);
         $result = $bus->dispatch(new GenericMessage());
         $this->assertEquals(100, $result);
     }

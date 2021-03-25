@@ -26,6 +26,12 @@ class DispatchToHandler implements Bus, Chain
     public function dispatch(Message $message)
     {
         $handler = $this->handlerResolver->resolve($message);
-        return $handler($message);
+        $result = $handler($message);
+
+        if ($this->hasNext()) {
+            return $this->next($message);
+        }
+
+        return $result;
     }
 }

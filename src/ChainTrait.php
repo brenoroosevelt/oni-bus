@@ -21,10 +21,15 @@ trait ChainTrait
      */
     protected function next(Message $message)
     {
-        if ($this->nextBus instanceof Bus) {
+        if ($this->hasNext()) {
             return $this->nextBus->dispatch($message);
         }
 
         return null;
+    }
+
+    protected function hasNext(): bool
+    {
+        return $this->nextBus instanceof Bus;
     }
 }

@@ -8,6 +8,11 @@ class ClassMethod
     /**
      * @var string
      */
+    private $message;
+
+    /**
+     * @var string
+     */
     protected $class;
 
     /**
@@ -15,10 +20,16 @@ class ClassMethod
      */
     protected $method;
 
-    public function __construct(string $class, string $method)
+    public function __construct(string $message, string $class, string $method)
     {
+        $this->message = $message;
         $this->class = $class;
         $this->method = $method;
+    }
+
+    public function message(): string
+    {
+        return $this->message;
     }
 
     public function class(): string
