@@ -30,7 +30,6 @@ class ClassMethodResolver implements HandlerResolver
         $classMethods = $this->mapper->map($message);
         $fn = function () {
         };
-        var_dump($classMethods);
 
         foreach ($classMethods as $classMethod) {
             $fn = function (Message $message) use ($fn, $classMethod) {
