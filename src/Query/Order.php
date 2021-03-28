@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace XBus\Query;
 
-use Exception;
+use InvalidArgumentException;
+use XBus\KeyValueList;
 
 class Order
 {
@@ -25,7 +26,7 @@ class Order
     {
         $direction = mb_strtolower($direction);
         if (!in_array($direction, [self::ASC, self::DESC])) {
-            throw new Exception(
+            throw new InvalidArgumentException(
                 sprintf("Invalid direction (%s).", $direction)
             );
         }
@@ -33,7 +34,7 @@ class Order
         $this->set($fieldName, $direction);
     }
 
-    public static function by(string $fieldName, string $direction): Order
+    public static function by(string $fieldName, string $direction = self::ASC): self
     {
         return new self([$fieldName => $direction]);
     }

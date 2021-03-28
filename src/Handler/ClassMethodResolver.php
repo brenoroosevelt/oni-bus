@@ -5,6 +5,7 @@ namespace XBus\Handler;
 
 use Closure;
 use Psr\Container\ContainerInterface;
+use XBus\Exception\UnresolvableMenssageExcpetion;
 use XBus\Message;
 
 class ClassMethodResolver implements HandlerResolver
@@ -40,5 +41,10 @@ class ClassMethodResolver implements HandlerResolver
         }
 
         return $fn;
+    }
+
+    public function canResolve(Message $message): bool
+    {
+        return !empty($this->mapper->map($message));
     }
 }

@@ -15,7 +15,12 @@ class CommandBus extends BusChain
      */
     public function dispatch(Message $message)
     {
-        Assertion::assertInstanceOf(Command::class, $message);
+        Assertion::assertInstanceOf(
+            Command::class,
+            $message,
+            sprintf("[CommandBus] Expected object (%s). Got (%s).", Command::class, get_class($message))
+        );
+
         return parent::dispatch($message);
     }
 }

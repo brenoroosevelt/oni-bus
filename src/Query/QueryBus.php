@@ -15,7 +15,12 @@ class QueryBus extends BusChain
      */
     public function dispatch(Message $message)
     {
-        Assertion::assertInstanceOf(Query::class, $message);
+        Assertion::assertInstanceOf(
+            Query::class,
+            $message,
+            sprintf("[QueryBus] Expected object (%s). Got (%s).", Query::class, get_class($message))
+        );
+
         return parent::dispatch($message);
     }
 }

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace XBus\Query;
 
+use XBus\KeyValueList;
+
 class Filter
 {
     use KeyValueList {

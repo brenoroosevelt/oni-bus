@@ -3,8 +3,13 @@ declare(strict_types=1);
 
 namespace XBus\Query;
 
+use InvalidArgumentException;
+
 class Pagination
 {
+    const MIN_PAGE_NUMBER = 1;
+    const MIN_PAGE_LIMIT = 1;
+
     /**
      * @var int
      */
@@ -17,8 +22,14 @@ class Pagination
 
     public function __construct(int $page, int $limit)
     {
-        assert(($page < 1), sprintf("Invalid page number (%s).", $page));
-        assert(($limit < 1), sprintf("Invalid page limit (%s).", $limit));
+        if ($page < self::MIN_PAGE_NUMBER) {
+            throw new InvalidArgumentException(sprintf("Invalid page number (%s).", $page));
+        }
+
+        if ($limit < self::MIN_PAGE_LIMIT) {
+            throw new InvalidArgumentException(sprintf("Invalid page limit (%s).", $limit));
+        }
+
         $this->page = $page;
         $this->limit = $limit;
     }

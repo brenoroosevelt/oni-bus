@@ -25,7 +25,7 @@ class Transactional implements Bus, Chain
     public function dispatch(Message $message)
     {
         return $this->session->executeAtomically(function () use ($message) {
-                $this->next($message);
+            $this->next($message);
         });
     }
 }

@@ -11,7 +11,7 @@ use XBus\Attributes\Authorizer;
 use XBus\Attributes\CommandHandler;
 use XBus\BusChain;
 use XBus\Buses\DispatchToHandler;
-use XBus\Handler\AttributesMapper;
+use XBus\Handler\ClassMethodAttributesMapper;
 use XBus\Handler\ClassMethodResolver;
 use XBus\Test\Fixture\GenericMessage;
 use XBus\Test\Fixture\HandlerUsingAttributes;
@@ -32,7 +32,7 @@ class HandlerTest extends TestCase
         $cache1 = new Psr16Cache(new ArrayAdapter());
         $resolver = new ClassMethodResolver(
             new Container(),
-            new AttributesMapper($handlers, CommandHandler::class, $cache1, 'aadd')
+            new ClassMethodAttributesMapper($handlers, CommandHandler::class, $cache1, 'aadd')
         );
 
         $commandHandler = new DispatchToHandler($resolver);

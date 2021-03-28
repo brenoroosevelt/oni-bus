@@ -6,8 +6,6 @@ namespace XBus\Buses;
 use XBus\Bus;
 use XBus\Chain;
 use XBus\ChainTrait;
-use XBus\Event\Event;
-use XBus\Event\EventBus;
 use XBus\Event\ProvidesEvent;
 use XBus\Message;
 
@@ -16,7 +14,7 @@ class EventsDispatcher implements Bus, Chain
     use ChainTrait;
 
     /**
-     * @var EventBus
+     * @var Bus
      */
     protected $eventBus;
 
@@ -25,9 +23,9 @@ class EventsDispatcher implements Bus, Chain
      */
     protected $providesEvent;
 
-    public function __construct(ProvidesEvent $eventRecorder, EventBus $eventBus)
+    public function __construct(ProvidesEvent $providesEvent, Bus $eventBus)
     {
-        $this->providesEvent = $eventRecorder;
+        $this->providesEvent = $providesEvent;
         $this->eventBus = $eventBus;
     }
 

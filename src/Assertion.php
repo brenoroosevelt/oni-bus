@@ -7,16 +7,19 @@ use InvalidArgumentException;
 
 class Assertion
 {
-    public static function assertInstanceOf($expected, $subject): void
+    public static function assertInstanceOf($expected, $subject, $message = null): void
     {
-        if (!is_a($subject, $expected)) {
-            throw new InvalidArgumentException(
+        if (empty($message)) {
+            $message =
                 sprintf(
                     "[Invalid Argument] Expected (%s). Got (%s).",
                     $expected,
                     is_object($subject) ? get_class($subject) : gettype($subject)
-                )
-            );
+                );
+        }
+
+        if (!is_a($subject, $expected)) {
+            throw new InvalidArgumentException($message);
         }
     }
 }

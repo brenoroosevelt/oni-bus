@@ -15,7 +15,7 @@ use XBus\Exception\UnresolvableMenssageExcpetion;
 use XBus\Message;
 use XBus\NamedMessage;
 
-class AttributesMapper implements ClassMethodMapper
+class ClassMethodAttributesMapper implements ClassMethodMapper
 {
     /**
      * @var array

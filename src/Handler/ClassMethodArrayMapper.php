@@ -6,7 +6,7 @@ namespace XBus\Handler;
 use XBus\Message;
 use XBus\NamedMessage;
 
-class ArrayMapper implements ClassMethodMapper
+class ClassMethodArrayMapper implements ClassMethodMapper
 {
     /**
      * @var array
