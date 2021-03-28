@@ -9,7 +9,6 @@ use XBus\Message;
 
 class QueryBus extends BusChain
 {
-
     /**
      * @param  Message|Query $message
      * @return mixed

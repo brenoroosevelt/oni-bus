@@ -9,7 +9,6 @@ use XBus\Message;
 
 class CommandBus extends BusChain
 {
-
     /**
      * @param  Message|Command $message
      * @return mixed
