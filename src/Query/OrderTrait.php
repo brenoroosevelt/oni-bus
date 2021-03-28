@@ -19,4 +19,9 @@ trait OrderTrait
     {
         return $this->orderBy ?? new Order();
     }
+
+    public function hasOrders(): bool
+    {
+        return $this->orderBy instanceof Order && !$this->orderBy->isEmpty();
+    }
 }

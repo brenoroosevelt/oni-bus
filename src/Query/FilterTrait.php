@@ -19,4 +19,9 @@ trait FilterTrait
     {
         return $this->filters ?? new Filter();
     }
+
+    public function hasFilters(): bool
+    {
+        return $this->filters instanceof Filter && !$this->filters->isEmpty();
+    }
 }
