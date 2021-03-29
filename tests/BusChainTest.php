@@ -10,7 +10,6 @@ use OniBus\ChainTrait;
 use OniBus\Message;
 use OniBus\NamedMessage;
 use OniBus\Test\Fixture\GenericChain;
-use OniBus\Test\Fixture\Tasks;
 use PHPUnit\Framework\TestCase;
 
 class BusChainTest extends TestCase
@@ -53,7 +52,7 @@ class BusChainTest extends TestCase
 
     public function testShouldBusChainAcceptOnlyOneChain()
     {
-        $tasks = new Tasks();
+        $tasks = [];
         $chain =
             $this->getMockBuilder(GenericChain::class)
                 ->setMethods(['before'])
@@ -63,15 +62,15 @@ class BusChainTest extends TestCase
             ->expects($this->any())
             ->method('before')
             ->willReturnCallback(
-                static function () use ($tasks) {
-                    $tasks->set('task1', 100);
+                static function () use (&$tasks) {
+                    $tasks[] = 100;
                 }
             );
 
         $busChain = new BusChain($chain);
         $busChain->dispatch($this->newNamedMessage('message'));
 
-        $this->assertEquals(100, $tasks->get('task1'));
+        $this->assertEquals(100, $tasks[0]);
     }
 
     public function testShouldBusChainExecuteAllBuses()
