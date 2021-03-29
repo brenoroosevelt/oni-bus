@@ -24,8 +24,7 @@ class Payload implements Message
     {
         $missing = array_filter($required, function ($item) {
                 return !$this->has($item);
-            }
-        );
+        });
 
         if (!empty($missing)) {
             throw new InvalidArgumentException(

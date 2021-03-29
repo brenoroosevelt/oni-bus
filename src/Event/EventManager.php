@@ -9,6 +9,7 @@ use OniBus\Utility\Singleton;
  * @method static void recordEvent(Event ...$events)
  * @method static void aggregateEventsFrom(ProvidesEvent ...$eventRecorders)
  * @method static void pullEventsFrom(ProvidesEvent ...$eventRecorders)
+ * @method static Event[] releaseEvents()
  */
 final class EventManager extends EventProvider
 {
