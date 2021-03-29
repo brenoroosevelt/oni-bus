@@ -26,7 +26,7 @@ trait ChainTrait
     {
         if (!$this->hasNext()) {
             throw new RuntimeException(
-                sprintf("[%s] Next Bus Chain has not been defined.", get_class($this))
+                sprintf("[%s] The next Bus was not defined in the chain.", get_class($this))
             );
         }
 
