@@ -31,7 +31,7 @@ class Payload implements Message
             throw new InvalidArgumentException(
                 sprintf(
                     "Required parameters (%s) is missing for (%s).",
-                    implode(',', $missing),
+                    implode(', ', $missing),
                     get_class($this)
                 )
             );
