@@ -7,7 +7,7 @@ use OniBus\Chain;
 use OniBus\ChainTrait;
 use OniBus\Message;
 
-abstract class GenericChain implements Chain
+class GenericBusChain implements Chain
 {
     use ChainTrait;
 

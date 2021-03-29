@@ -9,7 +9,8 @@ use OniBus\Chain;
 use OniBus\ChainTrait;
 use OniBus\Message;
 use OniBus\NamedMessage;
-use OniBus\Test\Fixture\GenericChain;
+use OniBus\Test\Fixture\DummyMessage;
+use OniBus\Test\Fixture\GenericBusChain;
 use PHPUnit\Framework\TestCase;
 
 class BusChainTest extends TestCase
@@ -26,24 +27,6 @@ class BusChainTest extends TestCase
         };
     }
 
-    protected function newNamedMessage($name): NamedMessage
-    {
-        return new class($name) implements NamedMessage {
-
-            protected $name;
-
-            public function __construct($name)
-            {
-                $this->name = $name;
-            }
-
-            public function getMessageName(): string
-            {
-                return $this->name;
-            }
-        };
-    }
-
     public function testShouldBusChainThrowsExceptionIfEmpty()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -54,7 +37,7 @@ class BusChainTest extends TestCase
     {
         $tasks = [];
         $chain =
-            $this->getMockBuilder(GenericChain::class)
+            $this->getMockBuilder(GenericBusChain::class)
                 ->setMethods(['before'])
                 ->getMock();
 
@@ -68,7 +51,7 @@ class BusChainTest extends TestCase
             );
 
         $busChain = new BusChain($chain);
-        $busChain->dispatch($this->newNamedMessage('message'));
+        $busChain->dispatch(new DummyMessage('msg'));
 
         $this->assertEquals(100, $tasks[0]);
     }
@@ -78,7 +61,7 @@ class BusChainTest extends TestCase
         $tasks = [];
 
         $chain1 =
-            $this->getMockBuilder(GenericChain::class)
+            $this->getMockBuilder(GenericBusChain::class)
                 ->setMethods(['before'])
                 ->getMock();
         $chain1
@@ -91,7 +74,7 @@ class BusChainTest extends TestCase
             );
 
         $chain2 =
-            $this->getMockBuilder(GenericChain::class)
+            $this->getMockBuilder(GenericBusChain::class)
                 ->setMethods(['before'])
                 ->getMock();
         $chain2
@@ -104,7 +87,7 @@ class BusChainTest extends TestCase
             );
 
         $chain3 =
-            $this->getMockBuilder(GenericChain::class)
+            $this->getMockBuilder(GenericBusChain::class)
                 ->setMethods(['before'])
                 ->getMock();
         $chain3
@@ -118,7 +101,7 @@ class BusChainTest extends TestCase
 
 
         $busChain = new BusChain($chain1, $chain2, $chain3);
-        $busChain->dispatch($this->newNamedMessage('message'));
+        $busChain->dispatch(new DummyMessage('msg'));
 
         $this->assertEquals(100, $tasks[0]);
         $this->assertEquals(200, $tasks[1]);
