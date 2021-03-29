@@ -10,7 +10,7 @@ use OniBus\Utility\Singleton;
  * @method static void aggregateEventsFrom(ProvidesEvent ...$eventRecorders)
  * @method static void pullEventsFrom(ProvidesEvent ...$eventRecorders)
  */
-class EventManager extends EventProvider
+final class EventManager extends EventProvider
 {
     use Singleton;
 
