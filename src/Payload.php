@@ -6,7 +6,7 @@ namespace OniBus;
 use InvalidArgumentException;
 use OniBus\Utility\KeyValueList;
 
-class Payload implements Message
+class Payload
 {
     use KeyValueList {
         set as protected;
