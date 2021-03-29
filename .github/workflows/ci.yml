@@ -42,7 +42,7 @@ jobs:
 
 #    - name: PHP Stan
 #      run: "vendor/bin/phpstan analyse src"
-  
+
   codecov:
 
     name: Code Coverage
