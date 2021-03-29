@@ -4,9 +4,10 @@ declare(strict_types=1);
 namespace OniBus;
 
 use InvalidArgumentException;
+use JsonSerializable;
 use OniBus\Utility\KeyValueList;
 
-class Payload
+class Payload implements JsonSerializable
 {
     use KeyValueList {
         set as protected;
@@ -45,5 +46,10 @@ class Payload
     public function __call($name, $arguments)
     {
         return $this->get($name);
+    }
+
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
     }
 }

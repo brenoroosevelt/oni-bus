@@ -13,7 +13,8 @@
     "require": {
         "php" : "^7.1 || ^8.0",
         "psr/container": "@stable",
-        "psr/simple-cache": "@stable"
+        "psr/simple-cache": "@stable",
+        "ext-json": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^6 || ^9",
