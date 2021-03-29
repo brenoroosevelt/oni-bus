@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace OniBus;
 
-use OniBus\Event\EventManager;
 use RuntimeException;
 
 trait ChainTrait
