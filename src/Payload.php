@@ -5,6 +5,7 @@ namespace OniBus;
 
 use InvalidArgumentException;
 use JsonSerializable;
+use OniBus\Exception\RequiredParameterMissingException;
 use OniBus\Utility\KeyValueList;
 
 class Payload implements JsonSerializable
@@ -28,13 +29,7 @@ class Payload implements JsonSerializable
         });
 
         if (!empty($missing)) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    "Required parameter (%s) is missing for (%s).",
-                    implode(', ', $missing),
-                    get_class($this)
-                )
-            );
+            throw new RequiredParameterMissingException($this, $missing);
         }
     }
 
