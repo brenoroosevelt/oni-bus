@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace OniBus\Exception;
 
 use InvalidArgumentException;
-use OniBus\Payload;
 
 class RequiredParameterMissingException extends InvalidArgumentException
 {
@@ -13,14 +12,18 @@ class RequiredParameterMissingException extends InvalidArgumentException
      */
     protected $missing = [];
 
-    public function __construct(Payload $payload, array $missing)
+    /**
+     * @param object $subject
+     * @param array $missing
+     */
+    public function __construct($subject, array $missing)
     {
         $this->missing = $missing;
         parent::__construct(
             sprintf(
                 "Required parameter (%s) is missing for (%s).",
                 implode(', ', $missing),
-                get_class($payload)
+                is_object($subject) ? get_class($subject) : gettype($subject)
             )
         );
     }

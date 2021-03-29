@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace OniBus;
 
-use InvalidArgumentException;
 use JsonSerializable;
 use OniBus\Exception\RequiredParameterMissingException;
 use OniBus\Utility\KeyValueList;
