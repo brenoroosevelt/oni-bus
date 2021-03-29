@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace XBus\Event;
 
-use XBus\Assertion;
+use InvalidArgumentException;
 use XBus\BusChain;
 use XBus\Message;
 
@@ -15,11 +15,11 @@ class EventBus extends BusChain
      */
     public function dispatch(Message $message)
     {
-        Assertion::assertInstanceOf(
-            Event::class,
-            $message,
-            sprintf("[EventBus] Expected object (%s). Got (%s).", Event::class, get_class($message))
-        );
+        if (! $message instanceof Event) {
+            throw new InvalidArgumentException(
+                sprintf("[EventBus] Expected object (%s). Got (%s).", Event::class, get_class($message))
+            );
+        }
 
         return parent::dispatch($message);
     }
