@@ -20,16 +20,12 @@ class BusChain implements Bus
 
         $this->buses = $buses;
         for ($i = 0; $i < count($buses); $i++) {
-            $this->buses[$i]->setNext($this->nextChain($i));
+            $nextBus = $this->buses[$i + 1] ?? $this->dummyBus();
+            $this->buses[$i]->setNext($nextBus);
         }
     }
 
-    protected function nextChain(int $index): Bus
-    {
-        return $this->buses[$index + 1] ?? $this->emptyBus();
-    }
-
-    protected function emptyBus(): Bus
+    protected function dummyBus(): Bus
     {
         return new class implements Bus {
             public function dispatch(Message $message)
