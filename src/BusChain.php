@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace OniBus;
 
-use RuntimeException;
+use InvalidArgumentException;
 
 class BusChain implements Bus
 {
@@ -15,7 +15,7 @@ class BusChain implements Bus
     public function __construct(Chain ...$buses)
     {
         if (empty($buses)) {
-            throw new RuntimeException('Bus Chain cannot be empty.');
+            throw new InvalidArgumentException('Bus Chain cannot be empty.');
         }
 
         $this->buses = $buses;
