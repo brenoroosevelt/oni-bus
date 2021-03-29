@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace OniBus\Test;
 
 use Habemus\Container;
+use OniBus\Test\Fixture\UserCreatedEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Psr16Cache;

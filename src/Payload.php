@@ -36,4 +36,14 @@ class Payload implements Message
             );
         }
     }
+
+    public function __get($name)
+    {
+        return $this->get($name);
+    }
+
+    public function __call($name, $arguments)
+    {
+        return $this->get($name);
+    }
 }
