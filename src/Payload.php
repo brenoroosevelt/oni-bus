@@ -22,12 +22,10 @@ class Payload implements Message
 
     protected function assertRequiredParameters(array $required): void
     {
-        $missing = [];
-        foreach ($required as $item) {
-            if (!$this->has($item)) {
-                $missing[] = $item;
+        $missing = array_filter($required, function ($item) {
+                return !$this->has($item);
             }
-        }
+        );
 
         if (!empty($missing)) {
             throw new InvalidArgumentException(
