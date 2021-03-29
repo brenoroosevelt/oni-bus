@@ -10,12 +10,11 @@ use OniBus\Utility\Singleton;
  * @method static void aggregateEventsFrom(ProvidesEvent ...$eventRecorders)
  * @method static void pullEventsFrom(ProvidesEvent ...$eventRecorders)
  */
-class EventManager implements ProvidesEvent
+class EventManager extends EventProvider
 {
-    use EventProviderTrait;
     use Singleton;
 
-    protected static function createInstance(): self
+    protected static function singleInstance(): self
     {
         return new self();
     }

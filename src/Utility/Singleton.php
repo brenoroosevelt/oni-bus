@@ -15,7 +15,7 @@ trait Singleton
     public static function instance()
     {
         if (is_null(static::$instance)) {
-            self::$instance = static::createInstance();
+            self::$instance = static::singleInstance();
         }
 
         return self::$instance;
@@ -24,7 +24,7 @@ trait Singleton
     /**
      * @return $this
      */
-    abstract protected static function createInstance();
+    abstract protected static function singleInstance();
 
     public static function __callStatic($name, $arguments)
     {
