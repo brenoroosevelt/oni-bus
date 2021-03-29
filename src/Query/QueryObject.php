@@ -5,5 +5,7 @@ namespace OniBus\Query;
 
 class QueryObject implements Query
 {
-    use PaginationTrait, OrderTrait, FilterTrait;
+    use PaginationTrait,
+        OrderTrait,
+        FilterTrait;
 }

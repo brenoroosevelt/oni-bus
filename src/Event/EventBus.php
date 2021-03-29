@@ -3,24 +3,19 @@ declare(strict_types=1);
 
 namespace OniBus\Event;
 
-use InvalidArgumentException;
 use OniBus\BusChain;
 use OniBus\Message;
+use OniBus\Utility\Assert;
 
 class EventBus extends BusChain
 {
     /**
-     * @param  Message|Event $message
+     * @param  Message|Event $event
      * @return mixed
      */
-    public function dispatch(Message $message)
+    public function dispatch(Message $event)
     {
-        if (! $message instanceof Event) {
-            throw new InvalidArgumentException(
-                sprintf("[EventBus] Expected object (%s). Got (%s).", Event::class, get_class($message))
-            );
-        }
-
-        return parent::dispatch($message);
+        Assert::instanceOf(Event::class, $event, $this);
+        return parent::dispatch($event);
     }
 }

@@ -3,24 +3,19 @@ declare(strict_types=1);
 
 namespace OniBus\Query;
 
-use InvalidArgumentException;
 use OniBus\BusChain;
 use OniBus\Message;
+use OniBus\Utility\Assert;
 
 class QueryBus extends BusChain
 {
     /**
-     * @param  Message|Query $message
+     * @param  Message|Query $query
      * @return mixed
      */
-    public function dispatch(Message $message)
+    public function dispatch(Message $query)
     {
-        if (! $message instanceof Query) {
-            throw new InvalidArgumentException(
-                sprintf("[QueryBus] Expected object (%s). Got (%s).", Query::class, get_class($message))
-            );
-        }
-
-        return parent::dispatch($message);
+        Assert::instanceOf(Query::class, $query, $this);
+        return parent::dispatch($query);
     }
 }

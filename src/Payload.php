@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace OniBus;
 
 use JsonSerializable;
-use OniBus\Exception\RequiredParameterMissingException;
+use OniBus\Utility\Assert;
 use OniBus\Utility\KeyValueList;
 
 class Payload implements JsonSerializable
@@ -23,13 +23,7 @@ class Payload implements JsonSerializable
 
     protected function assertRequiredParameters(array $required): void
     {
-        $missing = array_filter($required, function ($item) {
-                return !$this->has($item);
-        });
-
-        if (!empty($missing)) {
-            throw new RequiredParameterMissingException($this, $missing);
-        }
+        Assert::requiredParameters($required, $this->toArray(), $this);
     }
 
     public function __get($name)

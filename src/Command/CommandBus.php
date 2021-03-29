@@ -3,28 +3,19 @@ declare(strict_types=1);
 
 namespace OniBus\Command;
 
-use InvalidArgumentException;
 use OniBus\BusChain;
 use OniBus\Message;
+use OniBus\Utility\Assert;
 
 class CommandBus extends BusChain
 {
     /**
-     * @param  Message|Command $message
+     * @param  Message|Command $command
      * @return mixed
      */
-    public function dispatch(Message $message)
+    public function dispatch(Message $command)
     {
-        if (! $message instanceof Command) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    "[CommandBus] Expected object (%s). Got (%s).",
-                    Command::class,
-                    get_class($message)
-                )
-            );
-        }
-
-        return parent::dispatch($message);
+        Assert::instanceOf(Command::class, $command, $this);
+        return parent::dispatch($command);
     }
 }

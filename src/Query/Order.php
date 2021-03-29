@@ -13,6 +13,7 @@ class Order
 
     use KeyValueList {
         set as private;
+        delete as private;
     }
 
     public function __construct(array $orders = [])
@@ -27,7 +28,7 @@ class Order
         $direction = mb_strtolower($direction);
         if (!in_array($direction, [self::ASC, self::DESC])) {
             throw new InvalidArgumentException(
-                sprintf("Invalid direction (%s).", $direction)
+                sprintf("[OrderBy] Invalid direction (%s) for field (%s).", $direction, $fieldName)
             );
         }
 

@@ -9,6 +9,7 @@ class Filter
 {
     use KeyValueList {
         set as private;
+        delete as private;
     }
 
     public function __construct(array $filters = [])
