@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace OniBus\Exception;
 
+use InvalidArgumentException;
 use OniBus\Payload;
-use RuntimeException;
 
-class RequiredParameterMissingException extends RuntimeException
+class RequiredParameterMissingException extends InvalidArgumentException
 {
     /**
      * @var array
