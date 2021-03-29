@@ -8,35 +8,34 @@ use RuntimeException;
 class BusChain implements Bus
 {
     /**
-     * @var Bus[]
+     * @var Chain[]
      */
     protected $buses = [];
 
-    public function __construct(Bus ...$buses)
+    public function __construct(Chain ...$buses)
     {
         if (empty($buses)) {
             throw new RuntimeException('Bus Chain cannot be empty.');
         }
 
-        foreach ($buses as $bus) {
-            $this->append($bus);
+        $this->buses = $buses;
+        for ($i = 0; $i < count($buses); $i++) {
+            $this->buses[$i]->setNext($this->nextChain($i));
         }
     }
 
-    protected function lastBus(): ?Bus
+    protected function nextChain(int $index): Bus
     {
-        $endKey = count($this->buses) - 1;
-        return $this->buses[$endKey] ?? null;
+        return $this->buses[$index + 1] ?? $this->emptyBus();
     }
 
-    protected function append(Bus $bus): void
+    protected function emptyBus(): Bus
     {
-        $last = $this->lastBus();
-        $this->buses[] = $bus;
-
-        if ($last instanceof Chain) {
-            $last->setNext($bus);
-        }
+        return new class implements Bus {
+            public function dispatch(Message $message)
+            {
+            }
+        };
     }
 
     public function dispatch(Message $message)

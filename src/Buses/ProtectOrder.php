@@ -3,12 +3,11 @@ declare(strict_types=1);
 
 namespace XBus\Buses;
 
-use XBus\Bus;
 use XBus\Chain;
 use XBus\ChainTrait;
 use XBus\Message;
 
-class ProtectOrder implements Bus, Chain
+class ProtectOrder implements Chain
 {
     use ChainTrait;
 

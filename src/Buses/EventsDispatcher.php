@@ -9,7 +9,7 @@ use XBus\ChainTrait;
 use XBus\Event\ProvidesEvent;
 use XBus\Message;
 
-class EventsDispatcher implements Bus, Chain
+class EventsDispatcher implements Chain
 {
     use ChainTrait;
 

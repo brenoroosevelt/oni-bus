@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace XBus;
 
+use RuntimeException;
+
 trait ChainTrait
 {
     /**
@@ -16,16 +18,19 @@ trait ChainTrait
     }
 
     /**
-     * @param  Message $message
+     * @param Message $message
      * @return mixed
+     * @throws RuntimeException
      */
     protected function next(Message $message)
     {
-        if ($this->hasNext()) {
-            return $this->nextBus->dispatch($message);
+        if (!$this->hasNext()) {
+            throw new RuntimeException(
+                sprintf("[%s] Next Bus Chain has not been defined.", get_class($this))
+            );
         }
 
-        return null;
+        return $this->nextBus->dispatch($message);
     }
 
     protected function hasNext(): bool
