@@ -29,7 +29,7 @@ class Payload implements Message
         if (!empty($missing)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    "Required parameters (%s) is missing for (%s).",
+                    "Required parameter (%s) is missing for (%s).",
                     implode(', ', $missing),
                     get_class($this)
                 )
