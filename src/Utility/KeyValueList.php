@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace OniBus\Utility;
 
 use Generator;
+use LogicException;
 
 trait KeyValueList
 {
@@ -19,6 +20,12 @@ trait KeyValueList
 
     public function get($id)
     {
+        if (!$this->has($id)) {
+            throw new LogicException(
+                sprintf("[%s] Item not found (%s).", get_class($this), $id)
+            );
+        }
+
         return $this->elements[$id];
     }
 
