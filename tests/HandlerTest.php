@@ -1,20 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Test;
+namespace OniBus\Test;
 
 use Habemus\Container;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Psr16Cache;
-use XBus\Attributes\Authorizer;
-use XBus\Attributes\CommandHandler;
-use XBus\BusChain;
-use XBus\Buses\DispatchToHandler;
-use XBus\Handler\ClassMethodAttributesMapper;
-use XBus\Handler\ClassMethodResolver;
-use XBus\Test\Fixture\GenericMessage;
-use XBus\Test\Fixture\HandlerUsingAttributes;
+use OniBus\Attributes\CommandHandler;
+use OniBus\BusChain;
+use OniBus\Buses\DispatchToHandler;
+use OniBus\Handler\ClassMethodAttributesMapper;
+use OniBus\Handler\ClassMethodResolver;
+use OniBus\Test\Fixture\GenericMessage;
+use OniBus\Test\Fixture\HandlerUsingAttributes;
 
 class HandlerTest extends TestCase
 {

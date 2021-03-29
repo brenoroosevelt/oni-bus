@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Buses;
+namespace OniBus\Buses;
 
 interface TransactionalSession
 {

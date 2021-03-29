@@ -1,9 +1,9 @@
 {
     "description": "Service Bus: Command Bus, Query Bus, Event Bus",
-    "name": "brenoroosevelt/x-bus",
+    "name": "brenoroosevelt/oni-bus",
     "minimum-stability": "stable",
     "license": "MIT",
-    "homepage": "https://github.com/brenoroosevelt/x-bus",
+    "homepage": "https://github.com/brenoroosevelt/oni-bus",
     "authors": [
         {
             "name": "Breno Roosevelt",
@@ -13,8 +13,7 @@
     "require": {
         "php" : "^7.1 || ^8.0",
         "psr/container": "@stable",
-        "psr/simple-cache": "@stable",
-        "ext-json": "*"
+        "psr/simple-cache": "@stable"
     },
     "require-dev": {
         "phpunit/phpunit": "^6 || ^9",
@@ -23,14 +22,18 @@
         "brenoroosevelt/habemus" : "@stable",
         "symfony/cache": "@stable"
     },
+    "suggest": {
+        "brenoroosevelt/habemus": "@stable",
+        "symfony/cache": "@stable"
+    },
     "autoload": {
         "psr-4": {
-            "XBus\\": "src"
+            "OniBus\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "XBus\\Test\\": "tests"
+            "OniBus\\Test\\": "tests"
         }
     },
     "scripts": {

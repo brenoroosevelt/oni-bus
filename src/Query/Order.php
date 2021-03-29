@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Query;
+namespace OniBus\Query;
 
 use InvalidArgumentException;
-use XBus\KeyValueList;
+use OniBus\Utility\KeyValueList;
 
 class Order
 {

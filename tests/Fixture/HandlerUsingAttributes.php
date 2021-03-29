@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Test\Fixture;
+namespace OniBus\Test\Fixture;
 
-use XBus\Attributes\Authorizer;
-use XBus\Attributes\CommandHandler;
+use OniBus\Attributes\Authorizer;
+use OniBus\Attributes\CommandHandler;
 
 class HandlerUsingAttributes
 {

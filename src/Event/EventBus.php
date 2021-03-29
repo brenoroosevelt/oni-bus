@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Event;
+namespace OniBus\Event;
 
 use InvalidArgumentException;
-use XBus\BusChain;
-use XBus\Message;
+use OniBus\BusChain;
+use OniBus\Message;
 
 class EventBus extends BusChain
 {

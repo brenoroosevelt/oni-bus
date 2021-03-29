@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Exception;
+namespace OniBus\Exception;
 
 use RuntimeException;
-use XBus\Message;
-use XBus\NamedMessage;
+use OniBus\Message;
+use OniBus\NamedMessage;
 
 class UnresolvableMenssageExcpetion extends RuntimeException
 {

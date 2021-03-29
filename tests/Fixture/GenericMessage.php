@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Test\Fixture;
+namespace OniBus\Test\Fixture;
 
-use XBus\Message;
+use OniBus\Message;
 
 class GenericMessage implements Message
 {

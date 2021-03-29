@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Event;
+namespace OniBus\Event;
 
 interface ProvidesEvent
 {

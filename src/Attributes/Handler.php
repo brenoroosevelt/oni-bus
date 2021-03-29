@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Attributes;
+namespace OniBus\Attributes;
 
 use Attribute;
 

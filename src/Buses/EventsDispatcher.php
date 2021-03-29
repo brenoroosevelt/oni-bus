@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Buses;
+namespace OniBus\Buses;
 
-use XBus\Bus;
-use XBus\Chain;
-use XBus\ChainTrait;
-use XBus\Event\ProvidesEvent;
-use XBus\Message;
+use OniBus\Bus;
+use OniBus\Chain;
+use OniBus\ChainTrait;
+use OniBus\Event\ProvidesEvent;
+use OniBus\Message;
 
 class EventsDispatcher implements Chain
 {

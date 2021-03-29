@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Handler;
+namespace OniBus\Handler;
 
 use Closure;
-use XBus\Exception\UnresolvableMenssageExcpetion;
-use XBus\Message;
-use XBus\NamedMessage;
+use OniBus\Exception\UnresolvableMenssageExcpetion;
+use OniBus\Message;
+use OniBus\NamedMessage;
 
 class ClosureArrayResolver implements HandlerResolver
 {

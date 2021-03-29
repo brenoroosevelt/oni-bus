@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Handler;
+namespace OniBus\Handler;
 
-use XBus\Message;
-use XBus\NamedMessage;
+use OniBus\Message;
+use OniBus\NamedMessage;
 
 class ClassMethodDefaultMapper implements ClassMethodMapper
 {

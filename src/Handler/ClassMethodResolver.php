@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Handler;
+namespace OniBus\Handler;
 
 use Closure;
 use Psr\Container\ContainerInterface;
-use XBus\Exception\UnresolvableMenssageExcpetion;
-use XBus\Message;
+use OniBus\Exception\UnresolvableMenssageExcpetion;
+use OniBus\Message;
 
 class ClassMethodResolver implements HandlerResolver
 {

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Event;
+namespace OniBus\Event;
 
-use XBus\Message;
+use OniBus\Message;
 
 interface Event extends Message
 {

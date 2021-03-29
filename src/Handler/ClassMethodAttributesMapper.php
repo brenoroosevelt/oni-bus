@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Handler;
+namespace OniBus\Handler;
 
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -9,11 +9,11 @@ use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
-use XBus\Attributes\CommandHandler;
-use XBus\Attributes\Handler;
-use XBus\Exception\UnresolvableMenssageExcpetion;
-use XBus\Message;
-use XBus\NamedMessage;
+use OniBus\Attributes\CommandHandler;
+use OniBus\Attributes\Handler;
+use OniBus\Exception\UnresolvableMenssageExcpetion;
+use OniBus\Message;
+use OniBus\NamedMessage;
 
 class ClassMethodAttributesMapper implements ClassMethodMapper
 {

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Buses;
+namespace OniBus\Buses;
 
-use XBus\Chain;
-use XBus\ChainTrait;
-use XBus\Message;
+use OniBus\Chain;
+use OniBus\ChainTrait;
+use OniBus\Message;
 
 class ProtectOrder implements Chain
 {

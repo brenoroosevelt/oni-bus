@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace XBus\Buses;
+namespace OniBus\Buses;
 
-use XBus\Chain;
-use XBus\ChainTrait;
-use XBus\Handler\HandlerResolver;
-use XBus\Message;
+use OniBus\Chain;
+use OniBus\ChainTrait;
+use OniBus\Handler\HandlerResolver;
+use OniBus\Message;
 
 class DispatchToHandler implements Chain
 {
