@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace OniBus\Utility;
 
+use RuntimeException;
+
 trait Singleton
 {
     private static $instance = null;
@@ -23,6 +25,18 @@ trait Singleton
      * @return $this
      */
     abstract protected static function createInstance();
+
+    public static function __callStatic($name, $arguments)
+    {
+        $instance = self::instance();
+        if (!method_exists($instance, $name)) {
+            throw new RuntimeException(
+                sprintf("Call to undefined method (%s::%s).", get_class($instance), $name)
+            );
+        }
+
+        return call_user_func_array([$instance, $name], $arguments);
+    }
 
     protected function __construct()
     {
