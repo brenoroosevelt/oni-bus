@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace OniBus\Event;
 
+use Generator;
 use OniBus\Utility\Singleton;
 
 /**
@@ -22,7 +23,7 @@ final class EventManager
         self::instance()->recordEvent(...$events);
     }
 
-    public static function releaseEvents(): iterable
+    public static function releaseEvents(): Generator
     {
         return self::instance()->releaseEvents();
     }
