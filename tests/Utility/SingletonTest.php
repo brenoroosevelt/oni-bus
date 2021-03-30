@@ -30,4 +30,11 @@ class SingletonTest extends TestCase
         $instance2 = SingletonClass::instance();
         $this->assertSame($instance1, $instance2);
     }
+
+    public function testShouldNotCloneInstancesOfSingleton()
+    {
+        $instance = SingletonClass::instance();
+        $this->expectException(Throwable::class);
+        $instance2 = clone $instance;
+    }
 }
