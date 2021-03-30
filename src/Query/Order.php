@@ -11,11 +11,6 @@ class Order extends Payload
     const ASC = 'asc';
     const DESC = 'desc';
 
-    public function __construct(array $orders = [])
-    {
-        parent::__construct($orders);
-    }
-
     protected function insert($item, $value)
     {
         $direction = mb_strtolower($value);
