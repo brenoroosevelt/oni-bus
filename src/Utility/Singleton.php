@@ -21,8 +21,4 @@ trait Singleton
     protected function __construct()
     {
     }
-
-    private function __clone()
-    {
-    }
 }
