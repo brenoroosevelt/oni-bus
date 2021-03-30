@@ -19,7 +19,8 @@ class BusChain implements Bus
         }
 
         $this->buses = $buses;
-        for ($i = 0; $i < count($buses); $i++) {
+        $count = count($buses);
+        for ($i = 0; $i < $count; $i++) {
             $nextBus = $this->buses[$i + 1] ?? $this->dummyBus();
             $this->buses[$i]->setNext($nextBus);
         }

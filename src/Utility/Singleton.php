@@ -7,7 +7,7 @@ use RuntimeException;
 
 trait Singleton
 {
-    private static $instance = null;
+    protected static $instance = null;
 
     /**
      * @return $this

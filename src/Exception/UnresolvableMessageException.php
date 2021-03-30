@@ -7,7 +7,7 @@ use RuntimeException;
 use OniBus\Message;
 use OniBus\NamedMessage;
 
-class UnresolvableMenssageExcpetion extends RuntimeException
+class UnresolvableMessageException extends RuntimeException
 {
     public static function message(Message $message): self
     {

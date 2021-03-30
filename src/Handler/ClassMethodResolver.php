@@ -5,7 +5,7 @@ namespace OniBus\Handler;
 
 use Closure;
 use Psr\Container\ContainerInterface;
-use OniBus\Exception\UnresolvableMenssageExcpetion;
+use OniBus\Exception\UnresolvableMessageException;
 use OniBus\Message;
 
 class ClassMethodResolver implements HandlerResolver

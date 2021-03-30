@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace OniBus\Handler;
 
 use Closure;
-use OniBus\Exception\UnresolvableMenssageExcpetion;
+use OniBus\Exception\UnresolvableMessageException;
 use OniBus\Message;
 use OniBus\NamedMessage;
 
@@ -28,7 +28,7 @@ class ClosureArrayResolver implements HandlerResolver
     public function resolve(Message $message): Closure
     {
         if (!$this->canResolve($message)) {
-            throw new UnresolvableMenssageExcpetion($message);
+            throw UnresolvableMessageException::message($message);
         }
 
         return $this->map[$this->getMessageName($message)];

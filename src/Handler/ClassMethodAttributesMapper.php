@@ -9,11 +9,10 @@ use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
-use OniBus\Attributes\CommandHandler;
 use OniBus\Attributes\Handler;
-use OniBus\Exception\UnresolvableMenssageExcpetion;
 use OniBus\Message;
 use OniBus\NamedMessage;
+use RuntimeException;
 
 class ClassMethodAttributesMapper implements ClassMethodMapper
 {
@@ -119,7 +118,7 @@ class ClassMethodAttributesMapper implements ClassMethodMapper
     {
         $hasParameters = (bool) $method->getNumberOfParameters();
         if (empty($attribute->getMessage()) && !$hasParameters) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
                     "Invalid Handler: No 'Message' has been set in %s::%s",
                     $method->getDeclaringClass()->getName(),

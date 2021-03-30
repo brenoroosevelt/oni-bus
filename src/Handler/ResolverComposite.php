@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace OniBus\Handler;
 
 use Closure;
-use OniBus\Exception\UnresolvableMenssageExcpetion;
+use OniBus\Exception\UnresolvableMessageException;
 use OniBus\Message;
 
 class ResolverComposite implements HandlerResolver
@@ -27,7 +27,7 @@ class ResolverComposite implements HandlerResolver
             }
         }
 
-        throw new UnresolvableMenssageExcpetion($message);
+        throw UnresolvableMessageException::message($message);
     }
 
     public function canResolve(Message $message): bool
