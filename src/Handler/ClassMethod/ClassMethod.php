@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace OniBus\Handler;
+namespace OniBus\Handler\ClassMethod;
 
 class ClassMethod
 {

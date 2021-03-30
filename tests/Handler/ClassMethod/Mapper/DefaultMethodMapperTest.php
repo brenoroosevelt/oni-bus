@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace OniBus\Test\Handler;
+namespace OniBus\Test\Handler\ClassMethod\Mapper;
 
-use OniBus\Handler\ClassMethod;
-use OniBus\Handler\ClassMethodDefaultMapper;
+use OniBus\Handler\ClassMethod\ClassMethod;
+use OniBus\Handler\ClassMethod\Mapper\DefaultMethodMapper;
 use OniBus\NamedMessage;
 use OniBus\Test\Fixture\ClassHandler;
 use OniBus\Test\TestCase;
 
-class ClassMethodDefaultMapperTest extends TestCase
+class DefaultMethodMapperTest extends TestCase
 {
     public function testMapper()
     {
@@ -27,7 +27,7 @@ class ClassMethodDefaultMapperTest extends TestCase
             }
         };
 
-        $mapper = new ClassMethodDefaultMapper([
+        $mapper = new DefaultMethodMapper([
             'message1' => ClassHandler::class,
             'message2' => ClassHandler::class,
         ], 'handle');
@@ -48,7 +48,7 @@ class ClassMethodDefaultMapperTest extends TestCase
             }
         };
 
-        $mapper = new ClassMethodDefaultMapper([
+        $mapper = new DefaultMethodMapper([
             'message1' => 'ClassA',
         ], 'handle');
 

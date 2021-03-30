@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace OniBus\Test\Handler;
 
 use Habemus\Container;
-use OniBus\Handler\ClassMethod;
-use OniBus\Handler\ClassMethodMapper;
+use OniBus\Handler\ClassMethod\ClassMethod;
+use OniBus\Handler\ClassMethod\ClassMethodMapper;
 use OniBus\Handler\ClassMethodResolver;
 use OniBus\Message;
 use OniBus\NamedMessage;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace OniBus\Handler;
 
 use Closure;
+use OniBus\Handler\ClassMethod\ClassMethodMapper;
 use Psr\Container\ContainerInterface;
-use OniBus\Exception\UnresolvableMessageException;
 use OniBus\Message;
 
 class ClassMethodResolver implements HandlerResolver

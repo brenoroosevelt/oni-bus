@@ -9,12 +9,12 @@ use Symfony\Component\Cache\Psr16Cache;
 use OniBus\Attributes\CommandHandler;
 use OniBus\BusChain;
 use OniBus\Buses\DispatchToHandler;
-use OniBus\Handler\ClassMethodAttributesMapper;
+use OniBus\Handler\ClassMethod\Mapper\AttributesMapper;
 use OniBus\Handler\ClassMethodResolver;
 use OniBus\Test\Fixture\GenericMessage;
 use OniBus\Test\Fixture\HandlerUsingAttributes;
 
-class HandlerTest extends TestCase
+class Handler extends TestCase
 {
     public function testAttr()
     {
@@ -30,7 +30,7 @@ class HandlerTest extends TestCase
         $cache1 = new Psr16Cache(new ArrayAdapter());
         $resolver = new ClassMethodResolver(
             new Container(),
-            new ClassMethodAttributesMapper($handlers, CommandHandler::class, $cache1, 'aadd')
+            new AttributesMapper($handlers, CommandHandler::class, $cache1, 'aadd')
         );
 
         $commandHandler = new DispatchToHandler($resolver);

@@ -1,77 +1,42 @@
 <?php
 declare(strict_types=1);
 
-namespace OniBus\Handler;
+namespace OniBus\Handler\Attributes;
 
-use Psr\SimpleCache\CacheInterface;
-use Psr\SimpleCache\InvalidArgumentException;
+use OniBus\Handler\ClassMethod\ClassMethod;
 use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
 use OniBus\Attributes\Handler;
-use OniBus\Message;
-use OniBus\NamedMessage;
 use RuntimeException;
 
-class ClassMethodAttributesMapper implements ClassMethodMapper
+class AttributesMapper implements AttributesMapperInterface
 {
+    /**
+     * @var string
+     */
+    protected $attribute;
+
     /**
      * @var array
      */
-    protected $map;
+    protected $handlersFQCN;
 
-    /**
-     * @var string
-     */
-    protected $cacheKey;
-
-    /**
-     * @var CacheInterface
-     */
-    protected $cache;
-    /**
-     * @var string
-     */
-    private $attribute;
-
-    public function __construct(array $handlersFQCN, string $attribute, CacheInterface $cache, string $cacheKey)
+    public function __construct(string $attribute, array $handlersFQCN = [])
     {
         $this->attribute = $attribute;
-        $this->cache = $cache;
-        $this->cacheKey = $cacheKey;
-        $this->map = $this->mapHandlers($handlersFQCN);
+        $this->handlersFQCN = $handlersFQCN;
     }
 
     /**
      * @inheritDoc
      */
-    public function map(Message $message): array
+    public function mapHandlers(): array
     {
-        $name = $message instanceof NamedMessage ? $message->getMessageName() : get_class($message);
-        return array_filter($this->map, function ($item) use ($name) {
-            return $item->message() === $name;
-        });
-    }
-
-    /**
-     * @param  array $handlersFQCN
-     * @return ClassMethod[]
-     * @throws InvalidArgumentException|ReflectionException
-     */
-    protected function mapHandlers(array $handlersFQCN): array
-    {
-        if ($this->cache->has($this->cacheKey)) {
-            return $this->cache->get($this->cacheKey);
-        }
-
         $mapped = [];
-        foreach ($handlersFQCN as $class) {
+        foreach ($this->handlersFQCN as $class) {
             $mapped = array_merge($mapped, $this->getHandlers($class));
-        }
-
-        if (!empty($mapped)) {
-            $this->cache->set($this->cacheKey, $mapped);
         }
 
         return $mapped;
