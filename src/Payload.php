@@ -19,8 +19,13 @@ class Payload implements JsonSerializable, IteratorAggregate, Countable
     public function __construct(array $data)
     {
         foreach ($data as $item => $value) {
-            $this->set($item, $value);
+            $this->insert($item, $value);
         }
+    }
+
+    protected function insert($item, $value)
+    {
+        $this->set($item, $value);
     }
 
     protected function assertRequiredParameters(array $required): void
