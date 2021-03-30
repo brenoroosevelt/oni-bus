@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace OniBus\Event;
 
+use Generator;
+
 trait EventProviderTrait
 {
     /**
@@ -36,7 +38,7 @@ trait EventProviderTrait
         }
     }
 
-    public function releaseEvents(): iterable
+    public function releaseEvents(): Generator
     {
         $this->pullEventsFrom(...$this->aggregateEvents);
 

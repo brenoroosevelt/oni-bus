@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace OniBus\Event;
 
+use Generator;
+
 interface ProvidesEvent
 {
     /**
-     * @return Event[]
+     * @return Generator<Event>
      */
-    public function releaseEvents(): iterable;
+    public function releaseEvents(): Generator;
 }

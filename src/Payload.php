@@ -16,7 +16,7 @@ class Payload implements JsonSerializable, IteratorAggregate, Countable
         delete as protected;
     }
 
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         foreach ($data as $item => $value) {
             $this->insert($item, $value);

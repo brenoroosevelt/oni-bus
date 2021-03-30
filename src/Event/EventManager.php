@@ -22,9 +22,6 @@ final class EventManager
         self::instance()->recordEvent(...$events);
     }
 
-    /**
-     * @return Event[]
-     */
     public static function releaseEvents(): iterable
     {
         return self::instance()->releaseEvents();
