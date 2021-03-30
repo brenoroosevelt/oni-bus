@@ -11,12 +11,12 @@ class OrderTest extends TestCase
 {
     public function testShouldAddOrderBy()
     {
-        $filter = new Order(['field1' => 'asc']);
-        $filter->add('field2', 'desc');
-        $this->assertTrue($filter->has('field2'));
-        $this->assertEquals('desc', $filter->field2);
-        $this->assertEquals('desc', $filter->field2());
-        $this->assertEquals('desc', $filter->get('field2'));
+        $order = new Order(['field1' => Order::ASC]);
+        $order->add('field2', Order::DESC);
+        $this->assertTrue($order->has('field2'));
+        $this->assertEquals(Order::DESC, $order->field2);
+        $this->assertEquals(Order::DESC, $order->field2());
+        $this->assertEquals(Order::DESC, $order->get('field2'));
     }
 
     public function testShouldOrderThrowsExceptionWhenInvalidDirectionWhenCreate()
@@ -27,14 +27,14 @@ class OrderTest extends TestCase
 
     public function testShouldOrderThrowsExceptionWhenInvalidDirectionWhenAdd()
     {
-        $filter = new Order();
+        $order = new Order();
         $this->expectException(InvalidArgumentException::class);
-        $filter->add('field', 'invalid');
+        $order->add('field', 'invalid');
     }
 
     public function testShouldOrderCreateUsingStaticMethod()
     {
-        $filter = Order::by('field');
-        $this->assertEquals(Order::ASC, $filter->get('field'));
+        $order = Order::by('field');
+        $this->assertEquals(Order::ASC, $order->get('field'));
     }
 }
