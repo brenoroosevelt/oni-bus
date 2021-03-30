@@ -4,9 +4,6 @@ declare(strict_types=1);
 namespace OniBus\Test;
 
 use Habemus\Container;
-use OniBus\Query\Pagination;
-use OniBus\Test\Fixture\UserQuery;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Psr16Cache;
 use OniBus\Attributes\CommandHandler;

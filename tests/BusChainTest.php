@@ -8,10 +8,8 @@ use OniBus\BusChain;
 use OniBus\Chain;
 use OniBus\ChainTrait;
 use OniBus\Message;
-use OniBus\NamedMessage;
 use OniBus\Test\Fixture\DummyMessage;
 use OniBus\Test\Fixture\GenericBusChain;
-use PHPUnit\Framework\TestCase;
 
 class BusChainTest extends TestCase
 {

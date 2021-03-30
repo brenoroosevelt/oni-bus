@@ -3,15 +3,12 @@ declare(strict_types=1);
 
 namespace OniBus\Test;
 
-use http\Exception\RuntimeException;
 use OniBus\Bus;
 use OniBus\ChainTrait;
 use OniBus\Message;
 use OniBus\Test\Fixture\DummyMessage;
 use OniBus\Test\Fixture\GenericBusChain;
-use OniBus\Test\Fixture\GenericChain;
-use OniBus\Test\Fixture\GenericMessage;
-use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use stdClass;
 
 class ChainTraitTest extends TestCase
@@ -37,7 +34,7 @@ class ChainTraitTest extends TestCase
     public function testChainTraitSetDefaultToNull()
     {
         $trait = $this->newChainTrait();
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $trait->callNext(new DummyMessage('msg'));
     }
 

@@ -6,7 +6,6 @@ namespace OniBus\Test;
 use OniBus\MessageNameFQCN;
 use OniBus\NamedMessage;
 use OniBus\Test\Fixture\DefaultNamedMessage;
-use PHPUnit\Framework\TestCase;
 
 class MessageNameFQCNTraitTest extends TestCase
 {
