@@ -17,7 +17,7 @@ trait FilterTrait
 
     public function filters(): Filter
     {
-        return $this->filters ?? new Filter();
+        return $this->filters ?? new Filter([]);
     }
 
     public function hasFilters(): bool
