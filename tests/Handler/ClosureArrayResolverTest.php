@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace OniBus\Test\Handler;
 
+use OniBus\Exception\UnresolvableMessageException;
 use OniBus\Handler\ClosureArrayResolver;
 use OniBus\Message;
 use OniBus\NamedMessage;
@@ -56,5 +57,19 @@ class ClosureArrayResolverTest extends TestCase
 
         $this->assertTrue($resolver->canResolve($message1));
         $this->assertFalse($resolver->canResolve($message2));
+    }
+
+    public function testShouldClosureArrayResolverThrowsException()
+    {
+        $message = new class implements NamedMessage {
+            public function getMessageName(): string
+            {
+                return 'message1';
+            }
+        };
+
+        $resolver = new ClosureArrayResolver([]);
+        $this->expectException(UnresolvableMessageException::class);
+        $resolver->resolve($message);
     }
 }
