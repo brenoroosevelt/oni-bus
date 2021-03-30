@@ -10,7 +10,7 @@ trait FilterTrait
      */
     protected $filters;
 
-    protected function setFilters(Filter $filter)
+    protected function setFilter(Filter $filter)
     {
         $this->filters = $filter;
     }

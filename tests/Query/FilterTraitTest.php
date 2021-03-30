@@ -31,14 +31,14 @@ class FilterTraitTest extends TestCase
     public function testShouldFilterTraitEmptyWhenFiltersAreEmpty()
     {
         $trait = $this->newFilterTrait();
-        $this->invokeMethod($trait, 'setFilters', [new Filter()]);
+        $this->invokeMethod($trait, 'setFilter', [new Filter()]);
         $this->assertFalse($trait->hasFilters());
     }
 
     public function testShouldFilterTraitSetFilter()
     {
         $trait = $this->newFilterTrait();
-        $this->invokeMethod($trait, 'setFilters', [new Filter(['field' => 'value'])]);
+        $this->invokeMethod($trait, 'setFilter', [new Filter(['field' => 'value'])]);
         $this->assertEquals('value', $trait->filters()->get('field'));
     }
 }
