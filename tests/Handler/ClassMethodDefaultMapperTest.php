@@ -38,4 +38,21 @@ class ClassMethodDefaultMapperTest extends TestCase
         $this->assertEquals(new ClassMethod('message1', ClassHandler::class, 'handle'), $result1[0]);
         $this->assertEquals(new ClassMethod('message2', ClassHandler::class, 'handle'), $result2[0]);
     }
+
+    public function testShouldClassMethodDefaultMapperSkipsClassMethodDoesNotExists()
+    {
+        $message1 = new class implements NamedMessage {
+            public function getMessageName(): string
+            {
+                return 'message1';
+            }
+        };
+
+        $mapper = new ClassMethodDefaultMapper([
+            'message1' => 'ClassA',
+        ], 'handle');
+
+        $result1 = $mapper->map($message1);
+        $this->assertEmpty($result1);
+    }
 }
