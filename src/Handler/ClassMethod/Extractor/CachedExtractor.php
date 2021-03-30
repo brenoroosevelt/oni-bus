@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace OniBus\Handler\Attributes;
+namespace OniBus\Handler\ClassMethod\Extractor;
 
-use OniBus\Handler\Attributes\AttributesMapperInterface;
+use OniBus\Handler\ClassMethod\ClassMethodExtractor;
 use Psr\SimpleCache\CacheInterface;
 
 /**
  * Decorator
  */
-class AttributesMapperCache implements AttributesMapperInterface
+class CachedExtractor implements ClassMethodExtractor
 {
     /**
-     * @var AttributesMapperInterface
+     * @var ClassMethodExtractor
      */
     protected $mapper;
 
@@ -26,7 +26,7 @@ class AttributesMapperCache implements AttributesMapperInterface
      */
     private $cache;
 
-    public function __construct(AttributesMapperInterface $mapper, CacheInterface $cache, string $cacheKey)
+    public function __construct(ClassMethodExtractor $mapper, CacheInterface $cache, string $cacheKey)
     {
         $this->mapper = $mapper;
         $this->cache = $cache;
@@ -36,13 +36,13 @@ class AttributesMapperCache implements AttributesMapperInterface
     /**
      * @inheritDoc
      */
-    public function mapHandlers(): array
+    public function extractClassMethods(): array
     {
         if ($this->cache->has($this->cacheKey)) {
             return $this->cache->get($this->cacheKey);
         }
 
-        $mapped = $this->mapper->mapHandlers();
+        $mapped = $this->mapper->extractClassMethods();
         $this->cache->set($this->cacheKey, $mapped);
         return $mapped;
     }

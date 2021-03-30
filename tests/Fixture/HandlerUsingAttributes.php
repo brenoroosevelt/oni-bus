@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace OniBus\Test\Fixture;
 
-use OniBus\Attributes\Authorizer;
 use OniBus\Attributes\CommandHandler;
 
 class HandlerUsingAttributes
@@ -12,5 +11,10 @@ class HandlerUsingAttributes
     public function execute(GenericMessage $message): int
     {
         return 100;
+    }
+
+    public function __invoke(GenericMessage $event): int
+    {
+        return 200;
     }
 }

@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace OniBus\Handler\Attributes;
+namespace OniBus\Handler\ClassMethod\Extractor;
 
 use OniBus\Handler\ClassMethod\ClassMethod;
+use OniBus\Handler\ClassMethod\ClassMethodExtractor;
 use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
@@ -11,7 +12,7 @@ use ReflectionMethod;
 use OniBus\Attributes\Handler;
 use RuntimeException;
 
-class AttributesMapper implements AttributesMapperInterface
+class ExtractorUsingAttribute implements ClassMethodExtractor
 {
     /**
      * @var string
@@ -32,7 +33,7 @@ class AttributesMapper implements AttributesMapperInterface
     /**
      * @inheritDoc
      */
-    public function mapHandlers(): array
+    public function extractClassMethods(): array
     {
         $mapped = [];
         foreach ($this->handlersFQCN as $class) {
