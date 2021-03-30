@@ -67,4 +67,27 @@ class PayloadTest extends TestCase
         $this->expectException(RequiredParameterMissingException::class);
         $this->invokeMethod($payload, 'assertRequiredParameters', [['param1', 'param3']]);
     }
+
+    public function testShouldCreateAPayloadCountValues()
+    {
+        $payload = new Payload(['param1' => 1, 'param2'=> 'str']);
+        $this->assertEquals(2, $payload->count());
+        $this->assertFalse($payload->isEmpty());
+    }
+
+    public function testShouldCreateAPayloadImplementsCountable()
+    {
+        $payload = new Payload(['param1' => 1, 'param2'=> 'str']);
+        $this->assertEquals(2, count($payload));
+    }
+
+    public function testShouldCreateAPayloadIterateValues()
+    {
+        $data = ['param1' => 1, 'param2'=> 'str'];
+        $payload = new Payload($data);
+        foreach ($payload as $item => $value) {
+            $this->assertTrue(in_array($item, array_keys($data)));
+            $this->assertTrue(in_array($value, array_values($data)));
+        }
+    }
 }

@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace OniBus;
 
+use Countable;
+use IteratorAggregate;
 use JsonSerializable;
 use OniBus\Utility\Assert;
 use OniBus\Utility\KeyValueList;
 
-class Payload implements JsonSerializable
+class Payload implements JsonSerializable, IteratorAggregate, Countable
 {
     use KeyValueList {
         set as protected;
