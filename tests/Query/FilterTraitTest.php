@@ -22,6 +22,12 @@ class FilterTraitTest extends TestCase
         $this->assertFalse($trait->hasFilters());
     }
 
+    public function testShouldFilterTraitAlwaysReturnInstanceOfFilter()
+    {
+        $trait = $this->newFilterTrait();
+        $this->assertInstanceOf(Filter::class, $trait->filters());
+    }
+
     public function testShouldFilterTraitEmptyWhenFiltersAreEmpty()
     {
         $trait = $this->newFilterTrait();
