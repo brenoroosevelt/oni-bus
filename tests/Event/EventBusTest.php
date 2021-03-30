@@ -1,26 +1,26 @@
 <?php
 declare(strict_types=1);
 
-namespace OniBus\Test\Query;
+namespace OniBus\Test\Event;
 
 use InvalidArgumentException;
 use OniBus\Chain;
 use OniBus\ChainTrait;
+use OniBus\Event\Event;
+use OniBus\Event\EventBus;
 use OniBus\Message;
-use OniBus\Query\Query;
-use OniBus\Query\QueryBus;
 use OniBus\Test\Fixture\GenericBusChain;
 use OniBus\Test\Fixture\GenericMessage;
 use OniBus\Test\TestCase;
 use stdClass;
 
-class QueryBusTest extends TestCase
+class EventBusTest extends TestCase
 {
-    public function testShouldQueryBusDispatchAQueryMessage()
+    public function testShouldEventBusDispatchAEvent()
     {
         $task = new stdClass();
 
-        $queryMessage = new class implements Query {
+        $event = new class implements Event {
         };
 
         $bus = new class ($task) implements Chain {
@@ -40,15 +40,15 @@ class QueryBusTest extends TestCase
             }
         };
 
-        $queryBus = new QueryBus($bus);
-        $queryBus->dispatch($queryMessage);
+        $eventBus = new EventBus($bus);
+        $eventBus->dispatch($event);
         $this->assertEquals("executed", $task->value);
     }
 
-    public function testShouldNotQueryBusDispatchInvalidMessage()
+    public function testShouldNotEventBusDispatchInvalidMessage()
     {
-        $queryBus = new QueryBus(new GenericBusChain());
+        $eventBus = new EventBus(new GenericBusChain());
         $this->expectException(InvalidArgumentException::class);
-        $queryBus->dispatch(new GenericMessage());
+        $eventBus->dispatch(new GenericMessage());
     }
 }
