@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace OniBus\Test;
 
+use LogicException;
 use OniBus\Exception\RequiredParameterMissingException;
 use OniBus\Payload;
 
@@ -44,6 +45,20 @@ class PayloadTest extends TestCase
         $payload = new Payload(['param1' => 1, 'param2'=> 'str']);
         $this->assertEquals(1, $payload->param1());
         $this->assertEquals('str', $payload->param2());
+    }
+
+    public function testShouldPayloadThrowsExceptionsWhenMethodDoesNotExists()
+    {
+        $payload = new Payload(['param1' => 1]);
+        $this->expectException(LogicException::class);
+        $this->assertEquals(1, $payload->param2());
+    }
+
+    public function testShouldPayloadThrowsExceptionsWhenPropertyDoesNotExists()
+    {
+        $payload = new Payload(['param1' => 1]);
+        $this->expectException(LogicException::class);
+        $this->assertEquals(1, $payload->param2);
     }
 
     public function testShouldCreateAPayloadValidateRequiredParams()
