@@ -6,17 +6,27 @@ namespace OniBus\Event;
 use OniBus\Utility\Singleton;
 
 /**
- * @method static void recordEvent(Event ...$events)
- * @method static void aggregateEventsFrom(ProvidesEvent ...$eventRecorders)
- * @method static void pullEventsFrom(ProvidesEvent ...$eventRecorders)
- * @method static Event[] releaseEvents()
+ * @method static EventProvider instance()
  */
-final class EventManager extends EventProvider
+final class EventManager
 {
     use Singleton;
 
-    protected static function singleInstance(): self
+    protected static function singleInstance(): EventProvider
     {
-        return new self();
+        return new EventProvider();
+    }
+
+    public static function recordEvent(Event ...$events): void
+    {
+        self::instance()->recordEvent(...$events);
+    }
+
+    /**
+     * @return Event[]
+     */
+    public static function releaseEvents(): iterable
+    {
+        return self::instance()->releaseEvents();
     }
 }

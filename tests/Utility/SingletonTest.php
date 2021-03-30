@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace OniBus\Test\Utility;
 
+use OniBus\Event\EventManager;
 use OniBus\Test\Fixture\SingletonClass;
 use OniBus\Test\TestCase;
 use RuntimeException;
@@ -28,16 +29,5 @@ class SingletonTest extends TestCase
         $instance1 = SingletonClass::instance();
         $instance2 = SingletonClass::instance();
         $this->assertSame($instance1, $instance2);
-    }
-
-    public function testShouldSingletonCallStatic()
-    {
-        $this->assertEquals(100, SingletonClass::foo());
-    }
-
-    public function testShouldSingletonThrowsErrorWhenMethodDoesNotExists()
-    {
-        $this->expectException(RuntimeException::class);
-        SingletonClass::bar();
     }
 }
