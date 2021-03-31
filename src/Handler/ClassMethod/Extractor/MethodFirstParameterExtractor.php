@@ -7,6 +7,7 @@ use OniBus\Handler\ClassMethod\ClassMethod;
 use OniBus\Handler\ClassMethod\ClassMethodExtractor;
 use ReflectionClass;
 use ReflectionException;
+use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use ReflectionNamedType;
 
@@ -68,7 +69,7 @@ class MethodFirstParameterExtractor implements ClassMethodExtractor
         return $handlers;
     }
 
-    public function firstParameterTypeHint(ReflectionMethod $method): ?string
+    public function firstParameterTypeHint(ReflectionFunctionAbstract $method): ?string
     {
         if (!$method->getNumberOfParameters()) {
             return null;

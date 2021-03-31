@@ -14,7 +14,7 @@ class CachedExtractor implements ClassMethodExtractor
     /**
      * @var ClassMethodExtractor
      */
-    protected $mapper;
+    protected $extractor;
 
     /**
      * @var string
@@ -26,9 +26,9 @@ class CachedExtractor implements ClassMethodExtractor
      */
     private $cache;
 
-    public function __construct(ClassMethodExtractor $mapper, CacheInterface $cache, string $cacheKey)
+    public function __construct(ClassMethodExtractor $extractor, CacheInterface $cache, string $cacheKey)
     {
-        $this->mapper = $mapper;
+        $this->extractor = $extractor;
         $this->cache = $cache;
         $this->cacheKey = $cacheKey;
     }
@@ -42,8 +42,8 @@ class CachedExtractor implements ClassMethodExtractor
             return $this->cache->get($this->cacheKey);
         }
 
-        $mapped = $this->mapper->extractClassMethods();
-        $this->cache->set($this->cacheKey, $mapped);
-        return $mapped;
+        $classMethods = $this->extractor->extractClassMethods();
+        $this->cache->set($this->cacheKey, $classMethods);
+        return $classMethods;
     }
 }

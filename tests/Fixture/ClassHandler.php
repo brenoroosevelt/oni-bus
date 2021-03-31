@@ -11,4 +11,12 @@ class ClassHandler
     {
         return 500;
     }
+
+    public function methodWithoutParameter()
+    {
+    }
+
+    public function primitiveParameter(int $a)
+    {
+    }
 }
