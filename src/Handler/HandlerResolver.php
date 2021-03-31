@@ -15,5 +15,4 @@ interface HandlerResolver
      * @throws UnresolvableMessageException
      */
     public function resolve(Message $message): Closure;
-    public function canResolve(Message $message): bool;
 }

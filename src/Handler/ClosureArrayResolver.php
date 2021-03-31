@@ -27,16 +27,11 @@ class ClosureArrayResolver implements HandlerResolver
 
     public function resolve(Message $message): Closure
     {
-        if (!$this->canResolve($message)) {
+        if (!array_key_exists($this->getMessageName($message), $this->map)) {
             throw UnresolvableMessageException::message($message);
         }
 
         return $this->map[$this->getMessageName($message)];
-    }
-
-    public function canResolve(Message $message): bool
-    {
-        return array_key_exists($this->getMessageName($message), $this->map);
     }
 
     protected function getMessageName(Message $message)

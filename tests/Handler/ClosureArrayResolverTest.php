@@ -55,8 +55,8 @@ class ClosureArrayResolverTest extends TestCase
             'message2' => 'invalidClosure'
         ]);
 
-        $this->assertTrue($resolver->canResolve($message1));
-        $this->assertFalse($resolver->canResolve($message2));
+        $this->expectException(UnresolvableMessageException::class);
+        $resolver->resolve($message2);
     }
 
     public function testShouldClosureArrayResolverThrowsException()

@@ -33,7 +33,6 @@ class ClassMethodResolverTest extends TestCase
         $resolver = new ClassMethodResolver(new Container(), $dummyMapper);
         $handler = $resolver->resolve($message1);
         $result = $handler($message1);
-        $this->assertTrue($resolver->canResolve($message1));
         $this->assertEquals(500, $result);
     }
 }

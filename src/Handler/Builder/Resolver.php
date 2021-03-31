@@ -9,6 +9,7 @@ use OniBus\Handler\ClassMethod\Extractor\CachedExtractor;
 use OniBus\Handler\ClassMethod\Extractor\ExtractorUsingAttribute;
 use OniBus\Handler\ClassMethod\Extractor\MethodFirstParameterExtractor;
 use OniBus\Handler\ClassMethod\Mapper\DirectMapper;
+use OniBus\Handler\ClassMethod\Mapper\ThrowingExceptionMapper;
 use OniBus\Handler\ClassMethodResolver;
 use OniBus\Handler\HandlerResolver;
 use Psr\Container\ContainerInterface;
@@ -19,7 +20,7 @@ final class Resolver
     /**
      * @var ContainerInterface
      */
-    protected $container;
+    private $container;
 
     /**
      * @var CacheInterface
@@ -31,9 +32,21 @@ final class Resolver
      */
     private $cacheKey;
 
+    /**
+     * @var bool
+     */
+    private $throwingException;
+
+    /**
+     * @var array
+     */
+    private $handlers;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->throwingException = false;
+        $this->handlers = [];
     }
 
     public static function new(ContainerInterface $container): self
@@ -41,21 +54,33 @@ final class Resolver
         return new self($container);
     }
 
-    public function useCache(CacheInterface $cache, string $cacheKey): self
+    public function withCache(CacheInterface $cache, string $cacheKey): self
     {
         $this->cache = $cache;
         $this->cacheKey = $cacheKey;
         return $this;
     }
 
-    public function inflectByAttribute(array $handlersFQCN, string $attribute = Handler::class): HandlerResolver
+    public function withHandlers(array $handlersFQCN): self
     {
-        return $this->build(new ExtractorUsingAttribute($attribute, $handlersFQCN));
+        $this->handlers = $handlersFQCN;
+        return $this;
     }
 
-    public function inflectByMethod(array $handlersFQCN, string $method = "__invoke"): HandlerResolver
+    public function throwingExceptions(bool $throw = true): self
     {
-        return $this->build(new MethodFirstParameterExtractor($method, $handlersFQCN));
+        $this->throwingException = $throw;
+        return $this;
+    }
+
+    public function mapByAttributes(string $attribute = Handler::class): HandlerResolver
+    {
+        return $this->build(new ExtractorUsingAttribute($attribute, $this->handlers));
+    }
+
+    public function mapByMethod(string $method = "__invoke"): HandlerResolver
+    {
+        return $this->build(new MethodFirstParameterExtractor($method, $this->handlers));
     }
 
     private function build(ClassMethodExtractor $extractor): HandlerResolver
@@ -64,9 +89,11 @@ final class Resolver
             $extractor = new CachedExtractor($extractor, $this->cache, $this->cacheKey);
         }
 
-        return new ClassMethodResolver(
-            $this->container,
-            new DirectMapper(...$extractor->extractClassMethods())
-        );
+        $mapper = new DirectMapper(...$extractor->extractClassMethods());
+        if ($this->throwingException) {
+            $mapper = new ThrowingExceptionMapper($mapper);
+        }
+
+        return new ClassMethodResolver($this->container, $mapper);
     }
 }

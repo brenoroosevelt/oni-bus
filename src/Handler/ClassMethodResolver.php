@@ -42,9 +42,4 @@ class ClassMethodResolver implements HandlerResolver
 
         return $fn;
     }
-
-    public function canResolve(Message $message): bool
-    {
-        return !empty($this->mapper->map($message));
-    }
 }
