@@ -5,7 +5,7 @@ namespace OniBus\Event;
 
 use Generator;
 
-final class EventManager
+final class EventManager extends EventProvider
 {
     private static $eventProvider = null;
 
@@ -16,18 +16,18 @@ final class EventManager
     public static function eventProvider(): EventProvider
     {
         if (is_null(self::$eventProvider)) {
-            self::$eventProvider = new EventProvider();
+            self::$eventProvider = new self();
         }
 
         return self::$eventProvider;
     }
 
-    public static function recordEvent(Event ...$events): void
+    public static function record(Event ...$events): void
     {
         self::eventProvider()->recordEvent(...$events);
     }
 
-    public static function releaseEvents(): Generator
+    public static function release(): Generator
     {
         return self::eventProvider()->releaseEvents();
     }

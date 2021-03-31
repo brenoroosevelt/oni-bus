@@ -11,8 +11,8 @@ class EventManagerTest extends TestCase
 {
     public function testShouldEventManagerRecordAndReleaseEvents()
     {
-        EventManager::recordEvent(new GenericEvent(['item' => 'value']));
-        $events = iterator_to_array(EventManager::releaseEvents());
+        EventManager::record(new GenericEvent(['item' => 'value']));
+        $events = iterator_to_array(EventManager::release());
         $this->assertCount(1, $events);
         $this->assertEquals('value', $events[0]->get('item'));
     }
