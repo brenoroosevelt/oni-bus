@@ -7,5 +7,5 @@
 
     <!-- PHP8 Support: https://github.com/squizlabs/PHP_CodeSniffer/issues/3182 -->
     <exclude-pattern>src/Attributes/*.php</exclude-pattern>
-    <exclude-pattern>tests/Fixtures/*.php</exclude-pattern>
+    <exclude-pattern>tests/Fixture/*.php</exclude-pattern>
 </ruleset>
