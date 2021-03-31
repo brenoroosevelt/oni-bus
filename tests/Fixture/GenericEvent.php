@@ -8,4 +8,8 @@ use OniBus\Payload;
 
 class GenericEvent extends Payload implements Event
 {
+    /**
+     * @var int
+     */
+    public $value = 0;
 }
