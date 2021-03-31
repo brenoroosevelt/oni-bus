@@ -61,7 +61,7 @@ class ResolverTest extends TestCase
             $this->markTestSkipped();
             return;
         }
-        
+
         $handlers = [
             HandlerUsingAttributes::class
         ];

@@ -64,8 +64,10 @@ class PayloadTest extends TestCase
     public function testShouldCreateAPayloadValidateRequiredParams()
     {
         $payload = new Payload(['param1' => 1, 'param2'=> 'str']);
-        $this->expectException(RequiredParameterMissingException::class);
+        $error = new RequiredParameterMissingException($payload, ['param3']);
+        $this->expectExceptionObject($error);
         $this->invokeMethod($payload, 'assertRequiredParameters', [['param1', 'param3']]);
+        $this->assertEquals(['param3'], $error->getMissingParameters());
     }
 
     public function testShouldCreateAPayloadCountValues()
