@@ -8,6 +8,7 @@ use OniBus\Handler\ClassMethod\ClassMethodExtractor;
 use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
+use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use OniBus\Attributes\Handler;
 use RuntimeException;
@@ -68,7 +69,7 @@ class ExtractorUsingAttribute implements ClassMethodExtractor
         return $handlers;
     }
 
-    protected function extractHandlerAttribute(ReflectionMethod $method): ?Handler
+    protected function extractHandlerAttribute(ReflectionFunctionAbstract $method): ?Handler
     {
         $attribute = $method->getAttributes($this->attribute, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
         if ($attribute instanceof ReflectionAttribute) {
