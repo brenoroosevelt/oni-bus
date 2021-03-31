@@ -4,11 +4,15 @@ declare(strict_types=1);
 namespace OniBus\Test\Handler\ClassMethod\Extractor;
 
 use Closure;
+use OniBus\Attributes\CommandHandler;
 use OniBus\Attributes\EventListener;
 use OniBus\Attributes\Handler;
+use OniBus\Handler\ClassMethod\ClassMethod;
 use OniBus\Handler\ClassMethod\Extractor\ExtractorUsingAttribute;
 use OniBus\Test\Fixture\ClassHandler;
 use OniBus\Test\Fixture\GenericAttribute;
+use OniBus\Test\Fixture\GenericMessage;
+use OniBus\Test\Fixture\HandlerUsingAttributes;
 use OniBus\Test\TestCase;
 use ReflectionException;
 use ReflectionFunction;
@@ -45,21 +49,21 @@ class ExtractorUsingAttributeTest extends TestCase
         $extractor->assertAttributesAvailable();
     }
 
-//    public function testaa()
-//    {
-//        $extractor = new MethodFirstParameterExtractor('invalid', [ClassHandler::class]);
-//        $result = $extractor->extractClassMethods();
-//        $this->assertEmpty($result);
-//    }
+    public function testShouldExtractorUsingAttributeSkipsClassesWithoutAttributes()
+    {
+        $extractor = new ExtractorUsingAttribute(Handler::class, [ClassHandler::class]);
+        $result = $extractor->extractClassMethods();
+        $this->assertEmpty($result);
+    }
 
-//    public function testMethodFirstParameterExtractorReturnsCorrectClassMethod()
-//    {
-//        $extractor = new MethodFirstParameterExtractor('handle', [ClassHandler::class]);
-//        $result = $extractor->extractClassMethods();
-//        $this->assertEquals([
-//            new ClassMethod(Message::class, ClassHandler::class, 'handle')
-//        ], $result);
-//    }
+    public function testMethodFirstParameterExtractorReturnsCorrectClassMethod()
+    {
+        $extractor = new ExtractorUsingAttribute(CommandHandler::class, [HandlerUsingAttributes::class]);
+        $result = $extractor->extractClassMethods();
+        $this->assertEquals([
+            new ClassMethod(GenericMessage::class, HandlerUsingAttributes::class, 'execute')
+        ], $result);
+    }
 
     public function extractHandlerAttributeProvider(): array
     {
