@@ -70,8 +70,8 @@ class ExtractorUsingAttributeTest extends TestCase
                 },
                 EventListener::class,
                 null
-            ],
-        ];
+                ],
+                ];
     }
 
     /**
