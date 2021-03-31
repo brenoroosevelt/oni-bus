@@ -108,7 +108,7 @@ class ExtractorUsingAttribute implements ClassMethodExtractor
     {
         if (!$this->attributesAvailable()) {
             throw new RuntimeException(
-                sprintf("Attributes are not available for your PHP version. Use PHP version >= 8.0")
+                sprintf("Attributes are not available. Use PHP version >= 8.0")
             );
         }
     }

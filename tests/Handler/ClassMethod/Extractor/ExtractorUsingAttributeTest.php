@@ -51,6 +51,11 @@ class ExtractorUsingAttributeTest extends TestCase
 
     public function testShouldExtractorUsingAttributeSkipsClassesWithoutAttributes()
     {
+        if (PHP_VERSION_ID < 80000) {
+            $this->markTestSkipped();
+            return;
+        }
+
         $extractor = new ExtractorUsingAttribute(Handler::class, [ClassHandler::class]);
         $result = $extractor->extractClassMethods();
         $this->assertEmpty($result);
@@ -58,6 +63,11 @@ class ExtractorUsingAttributeTest extends TestCase
 
     public function testMethodFirstParameterExtractorReturnsCorrectClassMethod()
     {
+        if (PHP_VERSION_ID < 80000) {
+            $this->markTestSkipped();
+            return;
+        }
+        
         $extractor = new ExtractorUsingAttribute(CommandHandler::class, [HandlerUsingAttributes::class]);
         $result = $extractor->extractClassMethods();
         $this->assertEquals([
