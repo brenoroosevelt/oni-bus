@@ -88,7 +88,7 @@ class ExtractorUsingAttributeTest extends TestCase
 
         $this->expectExceptionMessage(
             sprintf(
-                "Invalid Handler: No 'Message' has been set in %s::%s",
+                "Invalid Handler Attribute: No 'Message' has been set in %s::%s",
                 HandlerWithInvalidAttribute::class,
                 'execute'
             )

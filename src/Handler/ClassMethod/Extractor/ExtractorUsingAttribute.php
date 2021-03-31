@@ -100,7 +100,7 @@ class ExtractorUsingAttribute implements ClassMethodExtractor
 
         throw new RuntimeException(
             sprintf(
-                "Invalid Handler: No 'Message' has been set in %s::%s",
+                "Invalid Handler Attribute: No 'Message' has been set in %s::%s",
                 $method->getDeclaringClass()->getName(),
                 $method->getName()
             )
