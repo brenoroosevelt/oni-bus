@@ -12,6 +12,7 @@ use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use OniBus\Attributes\Handler;
 use RuntimeException;
+use function Sodium\version_string;
 
 class ExtractorUsingAttribute implements ClassMethodExtractor
 {
@@ -27,6 +28,7 @@ class ExtractorUsingAttribute implements ClassMethodExtractor
 
     public function __construct(string $attribute, array $handlersFQCN = [])
     {
+        $this->assertAttributesAvailable();
         $this->attribute = $attribute;
         $this->handlersFQCN = $handlersFQCN;
     }
@@ -95,5 +97,19 @@ class ExtractorUsingAttribute implements ClassMethodExtractor
         }
 
         return $attribute->getMessage() ?? (string) $method->getParameters()[0]->getType();
+    }
+
+    public function attributesAvailable(): bool
+    {
+        return PHP_VERSION_ID >= 80000;
+    }
+
+    public function assertAttributesAvailable():void
+    {
+        if (!$this->attributesAvailable()) {
+            throw new RuntimeException(
+                sprintf("Attributes are not available for your PHP version. Use PHP version >= 8.0")
+            );
+        }
     }
 }

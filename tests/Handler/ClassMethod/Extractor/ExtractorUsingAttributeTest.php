@@ -6,13 +6,9 @@ namespace OniBus\Test\Handler\ClassMethod\Extractor;
 use Closure;
 use OniBus\Attributes\EventListener;
 use OniBus\Attributes\Handler;
-use OniBus\Handler\ClassMethod\ClassMethod;
 use OniBus\Handler\ClassMethod\Extractor\ExtractorUsingAttribute;
-use OniBus\Handler\ClassMethod\Extractor\MethodFirstParameterExtractor;
-use OniBus\Message;
 use OniBus\Test\Fixture\ClassHandler;
 use OniBus\Test\Fixture\GenericAttribute;
-use OniBus\Test\Fixture\GenericMessage;
 use OniBus\Test\TestCase;
 use ReflectionException;
 use ReflectionFunction;
@@ -21,6 +17,11 @@ class ExtractorUsingAttributeTest extends TestCase
 {
     public function testExtractorUsingAttributeReturnEmptyWhenClassNotExists()
     {
+        if (PHP_VERSION_ID < 80000) {
+            $this->markTestSkipped();
+            return;
+        }
+
         $extractor = new ExtractorUsingAttribute(Handler::class, ['InvalidClass']);
         $result = $extractor->extractClassMethods();
         $this->assertEmpty($result);
@@ -44,6 +45,10 @@ class ExtractorUsingAttributeTest extends TestCase
 
     public function extractHandlerAttributeProvider(): array
     {
+        if (PHP_VERSION_ID < 80000) {
+            return [];
+        }
+
         return [
             'return_attribute' => [
                 #[EventListener]
@@ -78,6 +83,11 @@ class ExtractorUsingAttributeTest extends TestCase
      */
     public function testExtractHandlerAttribute(Closure $fn, string $attribute, $expected)
     {
+        if (PHP_VERSION_ID < 80000) {
+            $this->markTestSkipped();
+            return;
+        }
+
         $function = new ReflectionFunction($fn);
         $extractor = new ExtractorUsingAttribute($attribute, [ClassHandler::class]);
         $result = $this->invokeMethod($extractor, 'extractHandlerAttribute', [$function]);
