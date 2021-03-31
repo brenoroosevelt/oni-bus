@@ -12,6 +12,7 @@ use OniBus\Test\Fixture\GenericAttribute;
 use OniBus\Test\TestCase;
 use ReflectionException;
 use ReflectionFunction;
+use RuntimeException;
 
 class ExtractorUsingAttributeTest extends TestCase
 {
@@ -25,6 +26,23 @@ class ExtractorUsingAttributeTest extends TestCase
         $extractor = new ExtractorUsingAttribute(Handler::class, ['InvalidClass']);
         $result = $extractor->extractClassMethods();
         $this->assertEmpty($result);
+    }
+
+    public function testShouldAssertAttributesAvailable()
+    {
+        $extractor =
+            $this->getMockBuilder(ExtractorUsingAttribute::class)
+                ->disableOriginalConstructor()
+                ->setMethods(['attributesAvailable'])
+                ->getMock();
+
+        $extractor
+            ->expects($this->any())
+            ->method('attributesAvailable')
+            ->willReturn(false);
+
+        $this->expectException(RuntimeException::class);
+        $extractor->assertAttributesAvailable();
     }
 
 //    public function testaa()
