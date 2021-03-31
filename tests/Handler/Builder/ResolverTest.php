@@ -57,6 +57,11 @@ class ResolverTest extends TestCase
 
     public function testShouldCreateResolverByAttributesWithCache()
     {
+        if (PHP_VERSION_ID < 80000) {
+            $this->markTestSkipped();
+            return;
+        }
+        
         $handlers = [
             HandlerUsingAttributes::class
         ];
@@ -74,6 +79,11 @@ class ResolverTest extends TestCase
 
     public function testShouldCreateResolverByAttributesThrowingExceptions()
     {
+        if (PHP_VERSION_ID < 80000) {
+            $this->markTestSkipped();
+            return;
+        }
+
         $handlers = [
             HandlerUsingAttributes::class
         ];
