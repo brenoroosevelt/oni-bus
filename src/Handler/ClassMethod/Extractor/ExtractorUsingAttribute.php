@@ -11,6 +11,7 @@ use ReflectionException;
 use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use OniBus\Attributes\Handler;
+use ReflectionNamedType;
 use RuntimeException;
 use function Sodium\version_string;
 
@@ -85,18 +86,25 @@ class ExtractorUsingAttribute implements ClassMethodExtractor
 
     protected function extractMessage(ReflectionMethod $method, Handler $attribute): string
     {
-        $hasParameters = (bool) $method->getNumberOfParameters();
-        if (empty($attribute->getMessage()) && !$hasParameters) {
-            throw new RuntimeException(
-                sprintf(
-                    "Invalid Handler: No 'Message' has been set in %s::%s",
-                    $method->getDeclaringClass()->getName(),
-                    $method->getName()
-                )
-            );
+        if (!empty($attribute->getMessage())) {
+            return  $attribute->getMessage();
         }
 
-        return $attribute->getMessage() ?? (string) $method->getParameters()[0]->getType();
+        $hasParameters = (bool) $method->getNumberOfParameters();
+        if ($hasParameters) {
+            $paramType = $method->getParameters()[0]->getType();
+            if ($paramType instanceof ReflectionNamedType && !$paramType->isBuiltin()) {
+                return $paramType->getName();
+            }
+        }
+
+        throw new RuntimeException(
+            sprintf(
+                "Invalid Handler: No 'Message' has been set in %s::%s",
+                $method->getDeclaringClass()->getName(),
+                $method->getName()
+            )
+        );
     }
 
     public function attributesAvailable(): bool

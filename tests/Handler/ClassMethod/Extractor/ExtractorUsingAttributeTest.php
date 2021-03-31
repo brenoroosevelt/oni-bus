@@ -13,6 +13,7 @@ use OniBus\Test\Fixture\ClassHandler;
 use OniBus\Test\Fixture\GenericAttribute;
 use OniBus\Test\Fixture\GenericMessage;
 use OniBus\Test\Fixture\HandlerUsingAttributes;
+use OniBus\Test\Fixture\HandlerWithInvalidAttribute;
 use OniBus\Test\TestCase;
 use ReflectionException;
 use ReflectionFunction;
@@ -61,18 +62,39 @@ class ExtractorUsingAttributeTest extends TestCase
         $this->assertEmpty($result);
     }
 
-    public function testMethodFirstParameterExtractorReturnsCorrectClassMethod()
+    public function testExtractorUsingAttributeReturnsCorrectClassMethod()
     {
         if (PHP_VERSION_ID < 80000) {
             $this->markTestSkipped();
             return;
         }
-        
-        $extractor = new ExtractorUsingAttribute(CommandHandler::class, [HandlerUsingAttributes::class]);
+
+        $extractor = new ExtractorUsingAttribute(Handler::class, [HandlerUsingAttributes::class]);
         $result = $extractor->extractClassMethods();
         $this->assertEquals([
-            new ClassMethod(GenericMessage::class, HandlerUsingAttributes::class, 'execute')
+            new ClassMethod(GenericMessage::class, HandlerUsingAttributes::class, 'execute'),
+            new ClassMethod(GenericMessage::class, HandlerUsingAttributes::class, 'fetch')
         ], $result);
+    }
+
+    public function testExtractorUsingAttributeThrowsExceptionWhenInvalidAttributeConfiguration()
+    {
+        if (PHP_VERSION_ID < 80000) {
+            $this->markTestSkipped();
+            return;
+        }
+
+        $extractor = new ExtractorUsingAttribute(Handler::class, [HandlerWithInvalidAttribute::class]);
+
+        $this->expectExceptionMessage(
+            sprintf(
+                "Invalid Handler: No 'Message' has been set in %s::%s",
+                HandlerWithInvalidAttribute::class,
+                'execute'
+            )
+        );
+
+        $extractor->extractClassMethods();
     }
 
     public function extractHandlerAttributeProvider(): array
