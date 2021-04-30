@@ -23,9 +23,11 @@ class Order extends Payload
         parent::insert($item, $value);
     }
 
-    public function add(string $fieldName, string  $direction = self::ASC)
+    public function add(string $fieldName, string  $direction = self::ASC): self
     {
-        $this->insert($fieldName, $direction);
+        $new = clone $this;
+        $new->insert($fieldName, $direction);
+        return $new;
     }
 
     public static function by(string $fieldName, string $direction = self::ASC): self

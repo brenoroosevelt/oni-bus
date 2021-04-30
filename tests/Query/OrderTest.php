@@ -12,11 +12,11 @@ class OrderTest extends TestCase
     public function testShouldAddOrderBy()
     {
         $order = new Order(['field1' => Order::ASC]);
-        $order->add('field2', Order::DESC);
-        $this->assertTrue($order->has('field2'));
-        $this->assertEquals(Order::DESC, $order->field2);
-        $this->assertEquals(Order::DESC, $order->field2());
-        $this->assertEquals(Order::DESC, $order->get('field2'));
+        $newOrder = $order->add('field2', Order::DESC);
+        $this->assertTrue($newOrder->has('field2'));
+        $this->assertEquals(Order::DESC, $newOrder->field2);
+        $this->assertEquals(Order::DESC, $newOrder->field2());
+        $this->assertEquals(Order::DESC, $newOrder->get('field2'));
     }
 
     public function testShouldOrderThrowsExceptionWhenInvalidDirectionWhenCreate()

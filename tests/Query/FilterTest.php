@@ -12,10 +12,10 @@ class FilterTest extends TestCase
     {
         $filter = new Filter(['field1' => 'value1']);
         $this->assertFalse($filter->has('field2'));
-        $filter->add('field2', 'value2');
-        $this->assertTrue($filter->has('field2'));
-        $this->assertEquals('value2', $filter->field2);
-        $this->assertEquals('value2', $filter->field2());
-        $this->assertEquals('value2', $filter->get('field2'));
+        $newFilter = $filter->add('field2', 'value2');
+        $this->assertTrue($newFilter->has('field2'));
+        $this->assertEquals('value2', $newFilter->field2);
+        $this->assertEquals('value2', $newFilter->field2());
+        $this->assertEquals('value2', $newFilter->get('field2'));
     }
 }
