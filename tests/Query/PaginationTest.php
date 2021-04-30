@@ -27,4 +27,16 @@ class PaginationTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         new Pagination(1, Pagination::MIN_PAGE_LIMIT -1);
     }
+
+    public function testShouldCreateNewPaginationWithMaxLimit()
+    {
+        $pagination = new Pagination(2, 10);
+        $samePagination = $pagination->withMaxLimit(15);
+        $newPagination = $pagination->withMaxLimit(5);
+
+        $this->assertSame($pagination, $samePagination);
+        $this->assertNotSame($pagination, $newPagination);
+        $this->assertEquals(10, $samePagination->limit());
+        $this->assertEquals(5, $newPagination->limit());
+    }
 }

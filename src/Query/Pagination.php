@@ -43,4 +43,9 @@ class Pagination
     {
         return $this->limit;
     }
+
+    public function withMaxLimit(int $max): self
+    {
+        return $this->limit > $max ? new self($this->page, $max) : $this;
+    }
 }
